@@ -1,0 +1,1682 @@
+{
+  "vehicles": [
+    {
+      "model": "Tata Nexon",
+      "category": "SUV",
+      "variants": [
+        {
+          "name": "Nexon EV Max",
+          "type": "Electric",
+          "specifications": {
+            "engine": "Permanent Magnet Synchronous Motor",
+            "power": "143 bhp",
+            "battery": "40.5 kWh",
+            "range": "437 km",
+            "transmission": "Single Speed Automatic",
+            "seating": 5,
+            "ground_clearance": "205 mm",
+            "boot_space": "350 L",
+            "features": [
+              "Connected Car Technology",
+              "Electronic Stability Program",
+              "Hill Assist",
+              "Multi-Drive Modes"
+            ]
+          }
+        },
+        {
+          "name": "Nexon Dark Edition",
+          "type": "Petrol",
+          "specifications": {
+            "engine": "1.2L Turbocharged Revotron",
+            "displacement": "1199 cc",
+            "power": "120 bhp",
+            "torque": "170 Nm",
+            "transmission": ["6-Speed Manual", "7-Speed DCT"],
+            "mileage": "17.01 kmpl",
+            "seating": 5,
+            "ground_clearance": "205 mm",
+            "boot_space": "382 L"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Tata Harrier",
+      "category": "SUV",
+      "variants": [
+        {
+          "name": "Harrier Red Dark",
+          "type": "Diesel",
+          "specifications": {
+            "engine": "2.0L Kryotec Turbocharged",
+            "displacement": "1956 cc",
+            "power": "170 bhp",
+            "torque": "350 Nm",
+            "transmission": ["6-Speed Manual", "6-Speed Automatic"],
+            "mileage": "16.35 kmpl",
+            "seating": 5,
+            "ground_clearance": "205 mm",
+            "boot_space": "425 L"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Tata Safari",
+      "category": "SUV",
+      "variants": [
+        {
+          "name": "Safari Red Dark",
+          "type": "Diesel",
+          "specifications": {
+            "engine": "2.0L Kryotec Turbocharged",
+            "displacement": "1956 cc",
+            "power": "170 bhp",
+            "torque": "350 Nm",
+            "transmission": ["6-Speed Manual", "6-Speed Automatic"],
+            "mileage": "16.14 kmpl",
+            "seating": 7,
+            "ground_clearance": "205 mm",
+            "boot_space": "447 L"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Tata Punch",
+      "category": "Micro SUV",
+      "variants": [
+        {
+          "name": "Punch Camo",
+          "type": "Petrol",
+          "specifications": {
+            "engine": "1.2L Revotron",
+            "displacement": "1199 cc",
+            "power": "88 bhp",
+            "torque": "113 Nm",
+            "transmission": ["5-Speed Manual", "5-Speed AMT"],
+            "mileage": "20.09 kmpl",
+            "seating": 5,
+            "ground_clearance": "187 mm",
+            "boot_space": "366 L"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Tata Altroz",
+      "category": "Hatchback",
+      "variants": [
+        {
+          "name": "Altroz DCA",
+          "type": "Petrol",
+          "specifications": {
+            "engine": "1.2L Revotron",
+            "displacement": "1199 cc",
+            "power": "86 bhp",
+            "torque": "113 Nm",
+            "transmission": ["5-Speed Manual", "6-Speed DCA"],
+            "mileage": "19.05 kmpl",
+            "seating": 5,
+            "ground_clearance": "165 mm",
+            "boot_space": "345 L"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Tata Tiago",
+      "category": "Hatchback",
+      "variants": [
+        {
+          "name": "Tiago EV",
+          "type": "Electric",
+          "specifications": {
+            "engine": "Permanent Magnet Synchronous Motor",
+            "power": "74 bhp",
+            "battery": "24 kWh",
+            "range": "315 km",
+            "transmission": "Single Speed Automatic",
+            "seating": 5,
+            "ground_clearance": "161 mm",
+            "boot_space": "240 L"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Tata Tigor",
+      "category": "Sedan",
+      "variants": [
+        {
+          "name": "Tigor EV",
+          "type": "Electric",
+          "specifications": {
+            "engine": "Permanent Magnet Synchronous Motor",
+            "power": "74 bhp",
+            "battery": "26 kWh",
+            "range": "315 km",
+            "transmission": "Single Speed Automatic",
+            "seating": 5,
+            "ground_clearance": "161 mm",
+            "boot_space": "316 L"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Tata Curvv",
+      "category": "Electric SUV Coupe",
+      "variants": [
+        {
+          "name": "Curvv EV",
+          "type": "Electric",
+          "specifications": {
+            "battery": "60 kWh",
+            "estimated_range": "500 km",
+            "seating": 5,
+            "features": [
+              "Dual Motor Setup",
+              "Advanced Driver Assistance",
+              "Connected Car Features"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "model": "Tata Ace EV",
+      "category": "Commercial",
+      "variants": [
+        {
+          "name": "Ace EV",
+          "type": "Electric",
+          "specifications": {
+            "motor": "27 kW",
+            "battery": "21.3 kWh",
+            "range": "154 km",
+            "payload": "600 kg",
+            "charging_time": "6-8 hours (normal charging)"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Tata Prima",
+      "category": "Commercial Truck",
+      "variants": [
+        {
+          "name": "Prima 3530.K",
+          "type": "Diesel",
+          "specifications": {
+            "engine": "Cummins ISBe 6.7",
+            "power": "300 hp",
+            "torque": "1100 Nm",
+            "transmission": "9-Speed Manual",
+            "gross_vehicle_weight": "35000 kg"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Tata Ultra",
+      "category": "Commercial",
+      "variants": [
+        {
+          "name": "Ultra T.7",
+          "type": "Diesel",
+          "specifications": {
+            "engine": "4SPCR",
+            "power": "100 hp",
+            "payload": "7200 kg",
+            "fuel_tank": "140 L"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Tata Yodha",
+      "category": "Commercial Pickup",
+      "variants": [
+        {
+          "name": "Yodha Pickup",
+          "type": "Diesel",
+          "specifications": {
+            "engine": "2.2L",
+            "power": "100 hp",
+            "payload": "1700 kg",
+            "transmission": "5-Speed Manual"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Tata Intra",
+      "category": "Commercial",
+      "variants": [
+        {
+          "name": "Intra V30",
+          "type": "Diesel",
+          "specifications": {
+            "engine": "1.5L",
+            "power": "70 hp",
+            "payload": "1300 kg",
+            "fuel_tank": "40 L"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Tata Magic",
+      "category": "Commercial",
+      "variants": [
+        {
+          "name": "Magic Express",
+          "type": "Diesel",
+          "specifications": {
+            "engine": "800 cc",
+            "power": "44 hp",
+            "seating": "7+1",
+            "fuel_tank": "30 L"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Tata Winger",
+      "category": "Commercial Van",
+      "variants": [
+        {
+          "name": "Winger Luxury",
+          "type": "Diesel",
+          "specifications": {
+            "engine": "2.2L DICOR",
+            "power": "100 hp",
+            "seating": "13-17",
+            "fuel_tank": "60 L"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Tata Starbus",
+      "category": "Commercial Bus",
+      "variants": [
+        {
+          "name": "Starbus Ultra",
+          "type": "Diesel",
+          "specifications": {
+            "engine": "5.0L Cummins",
+            "power": "180 hp",
+            "seating": "32-41",
+            "fuel_tank": "160 L"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Tata LP 712",
+      "category": "Commercial Truck",
+      "variants": [
+        {
+          "name": "LP 712 Ex",
+          "type": "Diesel",
+          "specifications": {
+            "engine": "3.3L",
+            "power": "123 hp",
+            "payload": "7200 kg",
+            "fuel_tank": "160 L"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Tata 407",
+      "category": "Commercial Truck",
+      "variants": [
+        {
+          "name": "407 Gold SFC",
+          "type": "Diesel",
+          "specifications": {
+            "engine": "3.0L",
+            "power": "100 hp",
+            "payload": "4700 kg",
+            "fuel_tank": "60 L"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Tata Signa",
+      "category": "Commercial Truck",
+      "variants": [
+        {
+          "name": "Signa 4825.T",
+          "type": "Diesel",
+          "specifications": {
+            "engine": "Cummins 6.7L",
+            "power": "250 hp",
+            "torque": "950 Nm",
+            "gross_vehicle_weight": "47500 kg"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Tata Ultra Electric",
+      "category": "Commercial Electric Truck",
+      "variants": [
+        {
+          "name": "Ultra EV",
+          "type": "Electric",
+          "specifications": {
+            "motor": "Permanent Magnet Synchronous",
+            "power": "200 kW",
+            "battery": "100 kWh",
+            "range": "300 km",
+            "payload": "5500 kg"
+          }
+        }
+      ]
+    },
+    {
+      "model": "XUV700",
+      "category": "Premium SUV",
+      "variants": [
+        {
+          "name": "XUV700 AX7L Luxury",
+          "type": "Petrol",
+          "specifications": {
+            "engine": "2.0L mStallion TGDi",
+            "displacement": "1999 cc",
+            "power": "200 bhp",
+            "torque": "380 Nm",
+            "transmission": ["6-Speed Manual", "6-Speed Automatic"],
+            "mileage": "14.3 kmpl",
+            "seating": 7,
+            "ground_clearance": "200 mm",
+            "boot_space": "390 L",
+            "features": [
+              "ADAS Level 2",
+              "Panoramic Sunroof",
+              "AdrenoX Connected Car Tech",
+              "Sony 3D Sound System"
+            ]
+          }
+        },
+        {
+          "name": "XUV700 AX7L Diesel",
+          "type": "Diesel",
+          "specifications": {
+            "engine": "2.2L mHawk",
+            "displacement": "2198 cc",
+            "power": "185 bhp",
+            "torque": "450 Nm",
+            "transmission": ["6-Speed Manual", "6-Speed Automatic"],
+            "mileage": "16.5 kmpl",
+            "seating": 7,
+            "ground_clearance": "200 mm",
+            "boot_space": "390 L"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Scorpio-N",
+      "category": "SUV",
+      "variants": [
+        {
+          "name": "Scorpio-N Z8L",
+          "type": "Diesel",
+          "specifications": {
+            "engine": "2.2L mHawk",
+            "displacement": "2198 cc",
+            "power": "175 bhp",
+            "torque": "400 Nm",
+            "transmission": ["6-Speed Manual", "6-Speed Automatic"],
+            "mileage": "15.4 kmpl",
+            "seating": 7,
+            "ground_clearance": "187 mm",
+            "features": [
+              "4XPLOR Terrain Management",
+              "Connected Car Tech",
+              "Sony Audio System",
+              "Dual-Zone Climate Control"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "model": "Thar",
+      "category": "Lifestyle SUV",
+      "variants": [
+        {
+          "name": "Thar LX",
+          "type": "Petrol",
+          "specifications": {
+            "engine": "2.0L mStallion",
+            "displacement": "1997 cc",
+            "power": "150 bhp",
+            "torque": "320 Nm",
+            "transmission": ["6-Speed Manual", "6-Speed Automatic"],
+            "mileage": "12.5 kmpl",
+            "seating": 4,
+            "ground_clearance": "226 mm",
+            "features": [
+              "4x4 with Manual Shift",
+              "Brake Locking Differential",
+              "Adventure Statistics Display",
+              "Washable Interior"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "model": "XUV300",
+      "category": "Compact SUV",
+      "variants": [
+        {
+          "name": "XUV300 W8 (O)",
+          "type": "Petrol",
+          "specifications": {
+            "engine": "1.2L mStallion TGDi",
+            "displacement": "1197 cc",
+            "power": "110 bhp",
+            "torque": "200 Nm",
+            "transmission": ["6-Speed Manual", "6-Speed AMT"],
+            "mileage": "17 kmpl",
+            "seating": 5,
+            "ground_clearance": "180 mm",
+            "boot_space": "257 L"
+          }
+        }
+      ]
+    },
+    {
+      "model": "XUV400 EV",
+      "category": "Electric SUV",
+      "variants": [
+        {
+          "name": "XUV400 EL",
+          "type": "Electric",
+          "specifications": {
+            "motor": "Permanent Magnet Synchronous",
+            "power": "150 bhp",
+            "torque": "310 Nm",
+            "battery": "39.4 kWh",
+            "range": "456 km",
+            "transmission": "Single Speed Automatic",
+            "seating": 5,
+            "ground_clearance": "180 mm",
+            "boot_space": "378 L"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Bolero",
+      "category": "SUV",
+      "variants": [
+        {
+          "name": "Bolero B6 (O)",
+          "type": "Diesel",
+          "specifications": {
+            "engine": "1.5L mHawk75",
+            "displacement": "1493 cc",
+            "power": "75 bhp",
+            "torque": "210 Nm",
+            "transmission": "5-Speed Manual",
+            "mileage": "16.7 kmpl",
+            "seating": 7,
+            "ground_clearance": "180 mm"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Bolero Neo",
+      "category": "SUV",
+      "variants": [
+        {
+          "name": "Bolero Neo N10",
+          "type": "Diesel",
+          "specifications": {
+            "engine": "1.5L mHawk100",
+            "displacement": "1493 cc",
+            "power": "100 bhp",
+            "torque": "260 Nm",
+            "transmission": "5-Speed Manual",
+            "mileage": "17.3 kmpl",
+            "seating": 7,
+            "ground_clearance": "184 mm"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Marazzo",
+      "category": "MPV",
+      "variants": [
+        {
+          "name": "Marazzo M6+",
+          "type": "Diesel",
+          "specifications": {
+            "engine": "1.5L",
+            "displacement": "1497 cc",
+            "power": "121 bhp",
+            "torque": "300 Nm",
+            "transmission": "6-Speed Manual",
+            "mileage": "17.3 kmpl",
+            "seating": 8,
+            "boot_space": "190 L"
+          }
+        }
+      ]
+    }, {
+      "model": "BE.05",
+      "category": "Electric SUV",
+      "variants": [
+        {
+          "name": "BE.05 Electric",
+          "type": "Electric",
+          "specifications": {
+            "motor": "Dual Motor Setup",
+            "power": "250+ bhp",
+            "battery": "80 kWh",
+            "estimated_range": "450 km",
+            "features": [
+              "Born Electric Platform",
+              "Advanced Driver Assistance",
+              "5G Connected Features"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "model": "BE.07",
+      "category": "Electric SUV",
+      "variants": [
+        {
+          "name": "BE.07 Electric",
+          "type": "Electric",
+          "specifications": {
+            "motor": "Dual Motor Setup",
+            "power": "270+ bhp",
+            "battery": "80 kWh",
+            "estimated_range": "500 km",
+            "features": [
+              "Born Electric Platform",
+              "Level 2+ ADAS",
+              "Augmented Reality HUD"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "model": "Supro",
+      "category": "Commercial Van",
+      "variants": [
+        {
+          "name": "Supro Cargo",
+          "type": "Diesel",
+          "specifications": {
+            "engine": "909 cc",
+            "power": "45 bhp",
+            "payload": "1000 kg",
+            "fuel_tank": "40 L",
+            "transmission": "5-Speed Manual"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Jeeto",
+      "category": "Commercial Mini Truck",
+      "variants": [
+        {
+          "name": "Jeeto Plus",
+          "type": "Diesel",
+          "specifications": {
+            "engine": "625 cc",
+            "power": "16 bhp",
+            "payload": "700 kg",
+            "fuel_tank": "20 L",
+            "transmission": "4-Speed Manual"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Alfa Plus",
+      "category": "Commercial Three Wheeler",
+      "variants": [
+        {
+          "name": "Alfa Plus CNG",
+          "type": "CNG",
+          "specifications": {
+            "engine": "395 cc",
+            "power": "8 bhp",
+            "payload": "400 kg",
+            "fuel_tank": "40 L (CNG)"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Treo",
+      "category": "Electric Three Wheeler",
+      "variants": [
+        {
+          "name": "Treo Zor",
+          "type": "Electric",
+          "specifications": {
+            "motor": "8 kW",
+            "battery": "7.37 kWh",
+            "range": "125 km",
+            "payload": "550 kg",
+            "charging_time": "3.5 hours"
+          }
+        }
+      ]
+    },
+    {
+      "model": "E-Alfa Mini",
+      "category": "Electric Three Wheeler",
+      "variants": [
+        {
+          "name": "E-Alfa Mini",
+          "type": "Electric",
+          "specifications": {
+            "motor": "1 kW",
+            "battery": "120 Ah",
+            "range": "85 km",
+            "seating": "4+1",
+            "charging_time": "6-7 hours"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Jayo",
+      "category": "Commercial Truck",
+      "variants": [
+        {
+          "name": "Jayo 6-Tyre",
+          "type": "Diesel",
+          "specifications": {
+            "engine": "2.5L",
+            "power": "95 bhp",
+            "payload": "6000 kg",
+            "fuel_tank": "60 L"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Furio",
+      "category": "Commercial Truck",
+      "variants": [
+        {
+          "name": "Furio 14",
+          "type": "Diesel",
+          "specifications": {
+            "engine": "3.5L",
+            "power": "140 bhp",
+            "payload": "14000 kg",
+            "fuel_tank": "160 L"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Blazo X",
+      "category": "Heavy Commercial Vehicle",
+      "variants": [
+        {
+          "name": "Blazo X 28",
+          "type": "Diesel",
+          "specifications": {
+            "engine": "7.2L",
+            "power": "280 bhp",
+            "gross_vehicle_weight": "28000 kg",
+            "fuel_tank": "400 L"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Cruzio",
+      "category": "Commercial Bus",
+      "variants": [
+        {
+          "name": "Cruzio T32",
+          "type": "Diesel",
+          "specifications": {
+            "engine": "3.3L",
+            "power": "150 bhp",
+            "seating": "32",
+            "fuel_tank": "180 L"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Atom",
+      "category": "Electric City Car",
+      "variants": [
+        {
+          "name": "Atom EV",
+          "type": "Electric",
+          "specifications": {
+            "motor": "15 kW",
+            "battery": "15 kWh",
+            "range": "150 km",
+            "seating": "4",
+            "charging_time": "5 hours"
+          }
+        }
+      ]
+    },
+
+    {
+      "model": "Fronx",
+      "category": "Compact SUV",
+      "variants": [
+        {
+          "name": "Fronx Turbo Sigma",
+          "type": "Petrol",
+          "specifications": {
+            "engine": "1.0L Boosterjet Turbo",
+            "displacement": "998 cc",
+            "power": "99 bhp",
+            "torque": "147.6 Nm",
+            "transmission": ["5-Speed Manual", "6-Speed Automatic"],
+            "mileage": "21.5 kmpl",
+            "seating": 5,
+            "ground_clearance": "190 mm",
+            "boot_space": "308 L",
+            "features": [
+              "Head-Up Display",
+              "360-degree Camera",
+              "9-inch SmartPlay Pro+",
+              "6 Airbags"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "model": "Grand Vitara",
+      "category": "SUV",
+      "variants": [
+        {
+          "name": "Grand Vitara Alpha+ Hybrid",
+          "type": "Strong Hybrid",
+          "specifications": {
+            "engine": "1.5L TNGA Hybrid",
+            "displacement": "1490 cc",
+            "power": "115 bhp (combined)",
+            "torque": "141 Nm",
+            "transmission": "e-CVT",
+            "mileage": "27.97 kmpl",
+            "seating": 5,
+            "ground_clearance": "210 mm",
+            "boot_space": "373 L",
+            "features": [
+              "AllGrip AWD",
+              "Panoramic Sunroof",
+              "Head-Up Display",
+              "360-degree Camera"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "model": "Jimny",
+      "category": "Lifestyle SUV",
+      "variants": [
+        {
+          "name": "Jimny Zeta",
+          "type": "Petrol",
+          "specifications": {
+            "engine": "1.5L K15B",
+            "displacement": "1462 cc",
+            "power": "103 bhp",
+            "torque": "134 Nm",
+            "transmission": ["5-Speed Manual", "4-Speed Automatic"],
+            "mileage": "16.94 kmpl",
+            "seating": 4,
+            "ground_clearance": "210 mm",
+            "features": [
+              "AllGrip Pro 4x4",
+              "Hill Hold Control",
+              "Brake Limited Slip Differential",
+              "9-inch SmartPlay Pro+"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "model": "Baleno",
+      "category": "Premium Hatchback",
+      "variants": [
+        {
+          "name": "Baleno Alpha",
+          "type": "Petrol",
+          "specifications": {
+            "engine": "1.2L DualJet",
+            "displacement": "1197 cc",
+            "power": "89 bhp",
+            "torque": "113 Nm",
+            "transmission": ["5-Speed Manual", "AMT"],
+            "mileage": "22.35 kmpl",
+            "seating": 5,
+            "boot_space": "318 L",
+            "features": [
+              "Head-Up Display",
+              "360-degree Camera",
+              "Connected Car Features",
+              "6 Airbags"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "model": "Swift",
+      "category": "Hatchback",
+      "variants": [
+        {
+          "name": "Swift ZXi+",
+          "type": "Petrol",
+          "specifications": {
+            "engine": "1.2L DualJet",
+            "displacement": "1197 cc",
+            "power": "89 bhp",
+            "torque": "113 Nm",
+            "transmission": ["5-Speed Manual", "AMT"],
+            "mileage": "23.20 kmpl",
+            "seating": 5,
+            "boot_space": "268 L"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Brezza",
+      "category": "Compact SUV",
+      "variants": [
+        {
+          "name": "Brezza ZXi+",
+          "type": "Petrol",
+          "specifications": {
+            "engine": "1.5L K15C",
+            "displacement": "1462 cc",
+            "power": "102 bhp",
+            "torque": "137 Nm",
+            "transmission": ["5-Speed Manual", "6-Speed Automatic"],
+            "mileage": "19.80 kmpl",
+            "seating": 5,
+            "ground_clearance": "198 mm",
+            "boot_space": "328 L"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Dzire",
+      "category": "Compact Sedan",
+      "variants": [
+        {
+          "name": "Dzire ZXi+",
+          "type": "Petrol",
+          "specifications": {
+            "engine": "1.2L DualJet",
+            "displacement": "1197 cc",
+            "power": "89 bhp",
+            "torque": "113 Nm",
+            "transmission": ["5-Speed Manual", "AMT"],
+            "mileage": "22.41 kmpl",
+            "seating": 5,
+            "boot_space": "378 L"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Wagon R",
+      "category": "Tall Boy Hatchback",
+      "variants": [
+        {
+          "name": "Wagon R ZXi+",
+          "type": "Petrol",
+          "specifications": {
+            "engine": "1.2L K12N",
+            "displacement": "1197 cc",
+            "power": "89 bhp",
+            "torque": "113 Nm",
+            "transmission": ["5-Speed Manual", "AMT"],
+            "mileage": "24.35 kmpl",
+            "seating": 5,
+            "boot_space": "341 L"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Alto K10",
+      "category": "Entry Hatchback",
+      "variants": [
+        {
+          "name": "Alto K10 VXi+",
+          "type": "Petrol",
+          "specifications": {
+            "engine": "1.0L K10C",
+            "displacement": "998 cc",
+            "power": "66 bhp",
+            "torque": "89 Nm",
+            "transmission": ["5-Speed Manual", "AMT"],
+            "mileage": "24.90 kmpl",
+            "seating": 5,
+            "boot_space": "214 L"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Ignis",
+      "category": "Compact Crossover",
+      "variants": [
+        {
+          "name": "Ignis Alpha",
+          "type": "Petrol",
+          "specifications": {
+            "engine": "1.2L VVT",
+            "displacement": "1197 cc",
+            "power": "82 bhp",
+            "torque": "113 Nm",
+            "transmission": ["5-Speed Manual", "AMT"],
+            "mileage": "20.89 kmpl",
+            "seating": 5,
+            "boot_space": "260 L"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Ciaz",
+      "category": "Premium Sedan",
+      "variants": [
+        {
+          "name": "Ciaz Alpha",
+          "type": "Petrol",
+          "specifications": {
+            "engine": "1.5L K15",
+            "displacement": "1462 cc",
+            "power": "103 bhp",
+            "torque": "138 Nm",
+            "transmission": ["5-Speed Manual", "4-Speed Automatic"],
+            "mileage": "20.65 kmpl",
+            "seating": 5,
+            "boot_space": "510 L"
+          }
+        }
+      ]
+    },
+    {
+      "model": "XL6",
+      "category": "Premium MPV",
+      "variants": [
+        {
+          "name": "XL6 Alpha+",
+          "type": "Petrol",
+          "specifications": {
+            "engine": "1.5L K15C",
+            "displacement": "1462 cc",
+            "power": "102 bhp",
+            "torque": "137 Nm",
+            "transmission": ["5-Speed Manual", "6-Speed Automatic"],
+            "mileage": "20.97 kmpl",
+            "seating": 6,
+            "boot_space": "209 L"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Ertiga",
+      "category": "MPV",
+      "variants": [
+        {
+          "name": "Ertiga ZXi+",
+          "type": "Petrol",
+          "specifications": {
+            "engine": "1.5L K15C",
+            "displacement": "1462 cc",
+            "power": "102 bhp",
+            "torque": "137 Nm",
+            "transmission": ["5-Speed Manual", "6-Speed Automatic"],
+            "mileage": "20.51 kmpl",
+            "seating": 7,
+            "boot_space": "209 L"
+          }
+        }
+      ]
+    },
+    {
+      "model": "S-Presso",
+      "category": "Mini SUV",
+      "variants": [
+        {
+          "name": "S-Presso VXi+",
+          "type": "Petrol",
+          "specifications": {
+            "engine": "1.0L K10C",
+            "displacement": "998 cc",
+            "power": "66 bhp",
+            "torque": "89 Nm",
+            "transmission": ["5-Speed Manual", "AMT"],
+            "mileage": "25.30 kmpl",
+            "seating": 5,
+            "boot_space": "270 L"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Eeco",
+      "category": "Van",
+      "variants": [
+        {
+          "name": "Eeco 5-Seater",
+          "type": "Petrol",
+          "specifications": {
+            "engine": "1.2L G12B",
+            "displacement": "1196 cc",
+            "power": "73 bhp",
+            "torque": "98 Nm",
+            "transmission": "5-Speed Manual",
+            "mileage": "20.52 kmpl",
+            "seating": 5,
+            "boot_space": "540 L"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Alto 800",
+      "category": "Entry Hatchback",
+      "variants": [
+        {
+          "name": "Alto 800 VXi",
+          "type": "Petrol",
+          "specifications": {
+            "engine": "0.8L F8D",
+            "displacement": "796 cc",
+            "power": "47 bhp",
+            "torque": "69 Nm",
+            "transmission": "5-Speed Manual",
+            "mileage": "22.05 kmpl",
+            "seating": 5,
+            "boot_space": "177 L"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Celerio",
+      "category": "Hatchback",
+      "variants": [
+        {
+          "name": "Celerio ZXi+",
+          "type": "Petrol",
+          "specifications": {
+            "engine": "1.0L K10C",
+            "displacement": "998 cc",
+            "power": "66 bhp",
+            "torque": "89 Nm",
+            "transmission": ["5-Speed Manual", "AMT"],
+            "mileage": "26.68 kmpl",
+            "seating": 5,
+            "boot_space": "313 L"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Super Carry",
+      "category": "Commercial Vehicle",
+      "variants": [
+        {
+          "name": "Super Carry Petrol",
+          "type": "Petrol",
+          "specifications": {
+            "engine": "1.2L G12B",
+            "displacement": "1196 cc",
+            "power": "72 bhp",
+            "torque": "98 Nm",
+            "transmission": "5-Speed Manual",
+            "payload": "740 kg",
+            "mileage": "19.33 kmpl"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Tour H1",
+      "category": "Commercial Hatchback",
+      "variants": [
+        {
+          "name": "Tour H1",
+          "type": "Petrol",
+          "specifications": {
+            "engine": "1.0L F8D",
+            "displacement": "998 cc",
+            "power": "67 bhp",
+            "torque": "90 Nm",
+            "transmission": "5-Speed Manual",
+            "mileage": "24.7 kmpl",
+            "seating": 5
+          }
+        }
+      ]
+    },
+    {
+      "model": "Tour S",
+      "category": "Commercial Sedan",
+      "variants": [
+        {
+          "name": "Tour S",
+          "type": "Petrol",
+          "specifications": {
+            "engine": "1.2L K12M",
+            "displacement": "1197 cc",
+            "power": "82 bhp",
+            "torque": "113 Nm",
+            "transmission": "5-Speed Manual",
+            "mileage": "23.26 kmpl",
+            "seating": 5,
+            "boot_space": "378 L"
+          }
+        }
+      ]
+    },
+
+    {
+      "model": "Exter",
+      "category": "Micro SUV",
+      "variants": [
+        {
+          "name": "Exter SX(O)",
+          "type": "Petrol",
+          "specifications": {
+            "engine": "1.2L Kappa",
+            "displacement": "1197 cc",
+            "power": "82 bhp",
+            "torque": "113.8 Nm",
+            "transmission": ["5-Speed Manual", "AMT"],
+            "mileage": "19.4 kmpl",
+            "seating": 5,
+            "ground_clearance": "185 mm",
+            "boot_space": "391 L",
+            "features": [
+              "Dashcam with Dual Camera",
+              "Connected Car Tech",
+              "6 Airbags",
+              "Smart Electric Sunroof"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "model": "Ioniq 5",
+      "category": "Electric SUV",
+      "variants": [
+        {
+          "name": "Ioniq 5 RWD",
+          "type": "Electric",
+          "specifications": {
+            "motor": "Permanent Magnet Synchronous",
+            "power": "217 bhp",
+            "torque": "350 Nm",
+            "battery": "72.6 kWh",
+            "range": "631 km",
+            "transmission": "Single Speed Automatic",
+            "seating": 5,
+            "boot_space": "531 L",
+            "features": [
+              "Vehicle-to-Load (V2L)",
+              "ADAS Level 2",
+              "Dual 12.3-inch Displays",
+              "800V Fast Charging"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "model": "Tucson",
+      "category": "Premium SUV",
+      "variants": [
+        {
+          "name": "Tucson Signature",
+          "type": "Diesel",
+          "specifications": {
+            "engine": "2.0L CRDi",
+            "displacement": "1997 cc",
+            "power": "186 bhp",
+            "torque": "416 Nm",
+            "transmission": "8-Speed Automatic",
+            "mileage": "15.3 kmpl",
+            "seating": 5,
+            "ground_clearance": "195 mm",
+            "boot_space": "540 L",
+            "features": [
+              "ADAS Level 2",
+              "Blind View Monitor",
+              "Panoramic Sunroof",
+              "AWD with Terrain Modes"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "model": "Verna",
+      "category": "Mid-size Sedan",
+      "variants": [
+        {
+          "name": "Verna SX(O) Turbo",
+          "type": "Petrol",
+          "specifications": {
+            "engine": "1.5L Turbo GDi",
+            "displacement": "1482 cc",
+            "power": "160 bhp",
+            "torque": "253 Nm",
+            "transmission": ["6-Speed Manual", "7-Speed DCT"],
+            "mileage": "20.6 kmpl",
+            "seating": 5,
+            "boot_space": "528 L",
+            "features": [
+              "ADAS Level 2",
+              "Ventilated Seats",
+              "Digital Cluster",
+              "Bose Premium Sound"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "model": "Creta",
+      "category": "Mid-size SUV",
+      "variants": [
+        {
+          "name": "Creta SX(O) Knight",
+          "type": "Diesel",
+          "specifications": {
+            "engine": "1.5L CRDi",
+            "displacement": "1493 cc",
+            "power": "115 bhp",
+            "torque": "250 Nm",
+            "transmission": ["6-Speed Manual", "6-Speed Automatic"],
+            "mileage": "21.4 kmpl",
+            "seating": 5,
+            "ground_clearance": "190 mm",
+            "boot_space": "433 L"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Venue",
+      "category": "Compact SUV",
+      "variants": [
+        {
+          "name": "Venue SX(O) Turbo",
+          "type": "Petrol",
+          "specifications": {
+            "engine": "1.0L Turbo GDi",
+            "displacement": "998 cc",
+            "power": "120 bhp",
+            "torque": "172 Nm",
+            "transmission": ["6-Speed iMT", "7-Speed DCT"],
+            "mileage": "18.15 kmpl",
+            "seating": 5,
+            "boot_space": "350 L"
+          }
+        }
+      ]
+    },
+    {
+      "model": "i20",
+      "category": "Premium Hatchback",
+      "variants": [
+        {
+          "name": "i20 Asta(O) Turbo",
+          "type": "Petrol",
+          "specifications": {
+            "engine": "1.0L Turbo GDi",
+            "displacement": "998 cc",
+            "power": "120 bhp",
+            "torque": "172 Nm",
+            "transmission": ["6-Speed iMT", "7-Speed DCT"],
+            "mileage": "20.28 kmpl",
+            "seating": 5,
+            "boot_space": "311 L"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Aura",
+      "category": "Compact Sedan",
+      "variants": [
+        {
+          "name": "Aura SX(O)",
+          "type": "Petrol",
+          "specifications": {
+            "engine": "1.2L Kappa",
+            "displacement": "1197 cc",
+            "power": "83 bhp",
+            "torque": "113.8 Nm",
+            "transmission": ["5-Speed Manual", "AMT"],
+            "mileage": "21 kmpl",
+            "seating": 5,
+            "boot_space": "402 L"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Grand i10 NIOS",
+      "category": "Hatchback",
+      "variants": [
+        {
+          "name": "NIOS Asta",
+          "type": "Petrol",
+          "specifications": {
+            "engine": "1.2L Kappa",
+            "displacement": "1197 cc",
+            "power": "83 bhp",
+            "torque": "113.8 Nm",
+            "transmission": ["5-Speed Manual", "AMT"],
+            "mileage": "21 kmpl",
+            "seating": 5,
+            "boot_space": "260 L"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Alcazar",
+      "category": "Premium SUV",
+      "variants": [
+        {
+          "name": "Alcazar Signature",
+          "type": "Diesel",
+          "specifications": {
+            "engine": "1.5L CRDi",
+            "displacement": "1493 cc",
+            "power": "115 bhp",
+            "torque": "250 Nm",
+            "transmission": ["6-Speed Manual", "6-Speed Automatic"],
+            "mileage": "20.4 kmpl",
+            "seating": "6/7",
+            "boot_space": "180 L (7-seater)/579 L (6-seater)"
+          }
+        }
+      ]
+    },
+    {
+      "model": "i20 N Line",
+      "category": "Sporty Hatchback",
+      "variants": [
+        {
+          "name": "N Line N8 DCT",
+          "type": "Petrol",
+          "specifications": {
+            "engine": "1.0L Turbo GDi",
+            "displacement": "998 cc",
+            "power": "120 bhp",
+            "torque": "172 Nm",
+            "transmission": ["6-Speed iMT", "7-Speed DCT"],
+            "mileage": "20.25 kmpl",
+            "seating": 5,
+            "boot_space": "311 L"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Venue N Line",
+      "category": "Sporty Compact SUV",
+      "variants": [
+        {
+          "name": "N Line N8 DCT",
+          "type": "Petrol",
+          "specifications": {
+            "engine": "1.0L Turbo GDi",
+            "displacement": "998 cc",
+            "power": "120 bhp",
+            "torque": "172 Nm",
+            "transmission": "7-Speed DCT",
+            "mileage": "18.15 kmpl",
+            "seating": 5,
+            "boot_space": "350 L"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Kona Electric",
+      "category": "Electric SUV",
+      "variants": [
+        {
+          "name": "Kona Premium",
+          "type": "Electric",
+          "specifications": {
+            "motor": "Permanent Magnet Synchronous",
+            "power": "136 bhp",
+            "torque": "395 Nm",
+            "battery": "39.2 kWh",
+            "range": "452 km",
+            "transmission": "Single Speed Automatic",
+            "seating": 5,
+            "boot_space": "332 L"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Xcent Prime",
+      "category": "Commercial Sedan",
+      "variants": [
+        {
+          "name": "Prime T+",
+          "type": "Petrol",
+          "specifications": {
+            "engine": "1.2L Kappa",
+            "displacement": "1197 cc",
+            "power": "83 bhp",
+            "torque": "113.8 Nm",
+            "transmission": "5-Speed Manual",
+            "mileage": "20.14 kmpl",
+            "seating": 5,
+            "boot_space": "407 L"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Grand i10 Prime",
+      "category": "Commercial Hatchback",
+      "variants": [
+        {
+          "name": "Prime T+",
+          "type": "Petrol",
+          "specifications": {
+            "engine": "1.2L Kappa",
+            "displacement": "1197 cc",
+            "power": "83 bhp",
+            "torque": "113.8 Nm",
+            "transmission": "5-Speed Manual",
+            "mileage": "19.77 kmpl",
+            "seating": 5,
+            "boot_space": "256 L"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Ioniq 6",
+      "category": "Electric Sedan",
+      "variants": [
+        {
+          "name": "Ioniq 6 AWD",
+          "type": "Electric",
+          "specifications": {
+            "motor": "Dual Motor Setup",
+            "power": "320 bhp",
+            "torque": "605 Nm",
+            "battery": "77.4 kWh",
+            "range": "519 km",
+            "transmission": "Single Speed Automatic",
+            "seating": 5,
+            "boot_space": "401 L",
+            "features": [
+              "800V Architecture",
+              "ADAS Level 2",
+              "V2L Function",
+              "Active Air Flaps"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "model": "Aura CNG",
+      "category": "Compact Sedan",
+      "variants": [
+        {
+          "name": "Aura S CNG",
+          "type": "Petrol + CNG",
+          "specifications": {
+            "engine": "1.2L Kappa Bi-Fuel",
+            "displacement": "1197 cc",
+            "power": "69 bhp (CNG)",
+            "torque": "95.2 Nm (CNG)",
+            "transmission": "5-Speed Manual",
+            "mileage": "28.4 km/kg (CNG)",
+            "seating": 5,
+            "boot_space": "402 L"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Grand i10 NIOS CNG",
+      "category": "Hatchback",
+      "variants": [
+        {
+          "name": "NIOS S CNG",
+          "type": "Petrol + CNG",
+          "specifications": {
+            "engine": "1.2L Kappa Bi-Fuel",
+            "displacement": "1197 cc",
+            "power": "69 bhp (CNG)",
+            "torque": "95.2 Nm (CNG)",
+            "transmission": "5-Speed Manual",
+            "mileage": "28.5 km/kg (CNG)",
+            "seating": 5,
+            "boot_space": "260 L"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Elantra",
+      "category": "Executive Sedan",
+      "variants": [
+        {
+          "name": "Elantra SX(O)",
+          "type": "Petrol",
+          "specifications": {
+            "engine": "2.0L Nu MPi",
+            "displacement": "1999 cc",
+            "power": "152 bhp",
+            "torque": "192 Nm",
+            "transmission": ["6-Speed Manual", "6-Speed Automatic"],
+            "mileage": "14.6 kmpl",
+            "seating": 5,
+            "boot_space": "458 L",
+            "features": [
+              "Ventilated Seats",
+              "Blue Link Connected Car",
+              "Wireless Charging",
+              "Hands-free Smart Trunk"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "model": "Santro",
+      "category": "Entry Hatchback",
+      "variants": [
+        {
+          "name": "Santro Sportz",
+          "type": "Petrol",
+          "specifications": {
+            "engine": "1.1L Epsilon",
+            "displacement": "1086 cc",
+            "power": "69 bhp",
+            "torque": "99 Nm",
+            "transmission": ["5-Speed Manual", "AMT"],
+            "mileage": "20.3 kmpl",
+            "seating": 5,
+            "boot_space": "235 L"
+          }
+        }
+      ]
+    }
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+  ]
+}
+    
