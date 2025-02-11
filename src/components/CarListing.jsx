@@ -116,37 +116,13 @@ const CarListing = () => {
     };
   }, []);
 
-  /*
   useEffect(() => {
-    fetch('/data/test.json')
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Failed to fetch car data');
-        }
-        return response.json();
-      })
-      .then(data => {
-        const carsArray = data.carsData || [];
-        setCars(carsArray);
-        
-        if (carsArray.length > 0) {
-          const maxCarPrice = Math.max(...carsArray.map(car => car.price));
-          setMaxPrice(maxCarPrice);
-          setDefaultMaxPrice(maxCarPrice);
-        }
-        
-        setLoading(false);
-      })
-      .catch(error => {
-        console.error('Error loading cars:', error);
-        setError(error.message);
-        setLoading(false);
-      });
-  }, []);  */
-
-
-  useEffect(() => {
-  fetch('/data/test.json')  // Make sure it starts with a forward slash
+    setLoading(true);
+    fetch("https://api.jsonbin.io/v3/b/67aa4297acd3cb34a8dce65f", {
+      headers: {
+        "X-Master-Key": "$2a$10$m.41BaxaqeIliqWf2bCrp.pqQse.5gbVIjW44xtPwPXvP2oQvk40C"
+      }
+    })
     .then(response => {
       if (!response.ok) {
         throw new Error('Failed to fetch car data');
@@ -154,7 +130,8 @@ const CarListing = () => {
       return response.json();
     })
     .then(data => {
-      const carsArray = Array.isArray(data) ? data : data.carsData || [];
+      // Extract the actual car data from the 'record' field
+      const carsArray = Array.isArray(data.record) ? data.record : data.record.carsData || [];
       setCars(carsArray);
       
       if (carsArray.length > 0) {
@@ -170,8 +147,7 @@ const CarListing = () => {
       setError(error.message);
       setLoading(false);
     });
-    
-}, []);
+  }, []);
 
   const resetFilters = () => {
     setSearchQuery('');

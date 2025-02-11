@@ -1,5 +1,6 @@
-import React, { Suspense, useEffect, useRef, useState } from "react";
+import React, { Suspense, useEffect, useRef, useState, useCallback, useMemo } from "react";
 import { Canvas } from "@react-three/fiber";
+import * as THREE from "three";
 import { OrbitControls, useGLTF, Html, Preload, useProgress } from "@react-three/drei";
 import { useNavigate } from "react-router-dom";
 import { 
@@ -22,68 +23,86 @@ import {
   MapPin
 } from "lucide-react";
 
-// Model Component
+// Progressive loading for Model
 function Model({ onLoad }) {
-  const { scene } = useGLTF("/models/gtb.glb", true);
+  const gltf = useGLTF("/models/gtb.glb", true);
   const { progress } = useProgress();
   
   useEffect(() => {
     if (progress === 100) {
-      scene.traverse((child) => {
+      // Enhanced material settings for a vibrant red car
+      gltf.scene.traverse((child) => {
         if (child.isMesh) {
-          child.material.roughness = 0.7;
-          child.material.metalness = 0.3;
+          // Check if it's the car body material
+          if (child.material.name.toLowerCase().includes('body') || 
+              child.material.name.toLowerCase().includes('exterior')) {
+            // Set to vibrant red color
+            child.material.color.setHex(0xff0000);
+            child.material.roughness = 0.2; // More glossy
+            child.material.metalness = 0.9; // More metallic
+            child.material.clearcoat = 1.0; // Add clearcoat for car paint effect
+            child.material.clearcoatRoughness = 0.1;
+            child.material.envMapIntensity = 1.5; // Enhance reflections
+          } else {
+            // For other materials (glass, chrome, etc.)
+            child.material.roughness = 0.4;
+            child.material.metalness = 0.8;
+            child.material.envMapIntensity = 1.2;
+          }
+          
           child.receiveShadow = true;
           child.castShadow = true;
+          child.frustumCulled = true;
+          
+          if (child.geometry) {
+            child.geometry.computeBoundingSphere();
+            child.geometry.computeBoundingBox();
+          }
         }
       });
       onLoad();
     }
-  }, [progress, onLoad, scene]);
+  }, [progress, onLoad, gltf.scene]);
 
-  return <primitive object={scene} scale={2} />;
+  return <primitive object={gltf.scene} scale={2} dispose={null} />;
 }
 
-// Auto-rotating Model
-function AutoRotatingModel({ onLoad }) {
-  const orbitControlsRef = useRef();
-  const rotationSpeed = useRef(0);
-  const targetRotationSpeed = 2;
 
-  useEffect(() => {
-    if (orbitControlsRef.current) {
-      const animate = () => {
-        if (rotationSpeed.current < targetRotationSpeed) {
-          rotationSpeed.current += 0.05;
-          orbitControlsRef.current.autoRotateSpeed = rotationSpeed.current;
-        }
-        requestAnimationFrame(animate);
-      };
-
-      orbitControlsRef.current.autoRotate = true;
-      animate();
-    }
-  }, []);
-
+// Enhanced lighting setup
+function ModelLighting() {
   return (
     <>
-      <Model onLoad={onLoad} />
-      <OrbitControls
-        ref={orbitControlsRef}
-        enableZoom={true}
-        enablePan={false}
-        enableRotate={true}
-        target={[0, 0, 0]}
-        minPolarAngle={Math.PI / 4}
-        maxPolarAngle={Math.PI - Math.PI / 4}
-        dampingFactor={0.05}
-        rotateSpeed={0.5}
+      <ambientLight intensity={0.7} />
+      <directionalLight 
+        position={[10, 10, 5]} 
+        intensity={1.5} 
+        castShadow
+        shadow-mapSize-width={2048}
+        shadow-mapSize-height={2048}
+      />
+      <directionalLight
+        position={[-10, 10, -5]}
+        intensity={1}
+        castShadow
+      />
+      <spotLight
+        position={[0, 10, 0]}
+        intensity={0.8}
+        angle={Math.PI / 4}
+        penumbra={0.1}
+        castShadow
+      />
+      <hemisphereLight
+        skyColor={0xffffff}
+        groundColor={0x444444}
+        intensity={0.7}
       />
     </>
   );
 }
 
-// Loading Component
+
+// Loading Component with Progress
 function LoadingFallback() {
   const { progress } = useProgress();
   return (
@@ -101,7 +120,54 @@ function LoadingFallback() {
   );
 }
 
-// Feature Label Component
+// Optimized AutoRotatingModel with RAF cleanup
+function AutoRotatingModel({ onLoad }) {
+  const orbitControlsRef = useRef();
+  const rotationSpeed = useRef(0);
+  const animationFrameRef = useRef();
+  const targetRotationSpeed = 2;
+
+  useEffect(() => {
+    if (orbitControlsRef.current) {
+      const animate = () => {
+        if (rotationSpeed.current < targetRotationSpeed) {
+          rotationSpeed.current += 0.05;
+          orbitControlsRef.current.autoRotateSpeed = rotationSpeed.current;
+        }
+        animationFrameRef.current = requestAnimationFrame(animate);
+      };
+
+      orbitControlsRef.current.autoRotate = true;
+      animate();
+
+      return () => {
+        if (animationFrameRef.current) {
+          cancelAnimationFrame(animationFrameRef.current);
+        }
+      };
+    }
+  }, []);
+
+  return (
+    <>
+      <ModelLighting />
+      <Model onLoad={onLoad} />
+      <OrbitControls
+        ref={orbitControlsRef}
+        enableZoom={true}
+        enablePan={false}
+        enableRotate={true}
+        target={[0, 0, 0]}
+        minPolarAngle={Math.PI / 4}
+        maxPolarAngle={Math.PI - Math.PI / 4}
+        dampingFactor={0.05}
+        rotateSpeed={0.5}
+      />
+    </>
+  );
+}
+
+// Feature Label Component with Intersection Observer
 function FeatureLabel({ children, className = "", icon: Icon, delay = 0 }) {
   const [isVisible, setIsVisible] = useState(false);
   const labelRef = useRef();
@@ -137,7 +203,7 @@ function FeatureLabel({ children, className = "", icon: Icon, delay = 0 }) {
   );
 }
 
-// Video Section Component
+// Optimized Video Section Component
 function VideoSection() {
   const [isPlaying, setIsPlaying] = useState(true);
   const [isMuted, setIsMuted] = useState(true);
@@ -145,11 +211,23 @@ function VideoSection() {
 
   useEffect(() => {
     if (videoRef.current) {
-      videoRef.current.play();
+      videoRef.current.play().catch(() => {
+        // Fallback for autoplay policy
+        setIsPlaying(false);
+        setIsMuted(true);
+      });
     }
+
+    return () => {
+      if (videoRef.current) {
+        videoRef.current.pause();
+        videoRef.current.src = "";
+        videoRef.current.load();
+      }
+    };
   }, []);
 
-  const togglePlay = () => {
+  const togglePlay = useCallback(() => {
     if (videoRef.current) {
       if (isPlaying) {
         videoRef.current.pause();
@@ -158,14 +236,14 @@ function VideoSection() {
       }
       setIsPlaying(!isPlaying);
     }
-  };
+  }, [isPlaying]);
 
-  const toggleMute = () => {
+  const toggleMute = useCallback(() => {
     if (videoRef.current) {
       videoRef.current.muted = !videoRef.current.muted;
       setIsMuted(!isMuted);
     }
-  };
+  }, [isMuted]);
 
   return (
     <section className="relative w-full h-screen bg-black">
@@ -178,7 +256,7 @@ function VideoSection() {
         loop
         muted={isMuted}
         playsInline
-        preload="auto"
+        preload="metadata"
       >
         <source src="/video/car.mp4" type="video/mp4" />
       </video>
@@ -213,6 +291,55 @@ function VideoSection() {
   );
 }
 
+// Smooth scroll utility
+const smoothScroll = (target, duration = 1000) => {
+  const start = window.pageYOffset;
+  const targetPosition = target.getBoundingClientRect().top;
+  const startTime = performance.now();
+
+  const ease = (t) => t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+
+  const animation = (currentTime) => {
+    const timeElapsed = currentTime - startTime;
+    const progress = Math.min(timeElapsed / duration, 1);
+
+    window.scrollTo(0, start + targetPosition * ease(progress));
+
+    if (progress < 1) {
+      requestAnimationFrame(animation);
+    }
+  };
+
+  requestAnimationFrame(animation);
+};
+
+// Custom Intersection Observer Hook
+function useIntersectionObserver(callback, options = {}) {
+  const observerRef = useRef();
+
+  const observe = useCallback((element) => {
+    if (observerRef.current) {
+      observerRef.current.disconnect();
+    }
+
+    observerRef.current = new IntersectionObserver(callback, options);
+
+    if (element) {
+      observerRef.current.observe(element);
+    }
+  }, [callback, options]);
+
+  useEffect(() => {
+    return () => {
+      if (observerRef.current) {
+        observerRef.current.disconnect();
+      }
+    };
+  }, []);
+
+  return observe;
+}
+
 // Main HomePage Component
 function HomePage() {
   const navigate = useNavigate();
@@ -221,45 +348,80 @@ function HomePage() {
   const scrollRef = useRef(null);
   const [activeSection, setActiveSection] = useState('hero');
 
-  // Intersection Observer for sections
-  useEffect(() => {
-    const observerOptions = {
-      threshold: 0.2,
-      rootMargin: '0px'
-    };
+  // Memoized static data
+  const performanceStats = useMemo(() => [
+    { icon: Gauge, stat: "320 PS", label: "Max Power" },
+    { icon: Settings, stat: "2.0L mStallion", label: "Engine" },
+    { icon: Fuel, stat: "20.5 kmpl", label: "Mileage" },
+    { icon: Clock, stat: "6.5 sec", label: "0-100 km/h" },
+    { icon: Wrench, stat: "4x4", label: "Drive System" }
+  ], []);
 
-    const observer = new IntersectionObserver((entries) => {
+  const heritageStats = useMemo(() => [
+    { label: "Made in India", value: "100%" },
+    { label: "Service Centers", value: "1000+" },
+    { label: "Cities Covered", value: "500+" },
+    { label: "Happy Customers", value: "2M+" }
+  ], []);
+
+  const technicalFeatures = useMemo(() => [
+    {
+      icon: Shield,
+      title: "Safety First",
+      description: "5-star safety rating with advanced driver assistance systems and multiple airbags for complete peace of mind."
+    },
+    {
+      icon: Settings,
+      title: "Smart Features",
+      description: "Connected car technology with smartphone integration, voice commands, and over-the-air updates."
+    },
+    {
+      icon: MapPin,
+      title: "Local Innovation",
+      description: "Designed for Indian roads with advanced terrain management and climate control systems."
+    }
+  ], []);
+
+  // Optimized section observer
+  const observeSection = useIntersectionObserver(
+    (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           setActiveSection(entry.target.dataset.section);
           entry.target.classList.add('animate-in');
         }
       });
-    }, observerOptions);
+    },
+    { threshold: 0.2, rootMargin: '0px' }
+  );
 
-    document.querySelectorAll('[data-section]').forEach((section) => {
-      observer.observe(section);
-    });
+  useEffect(() => {
+    const sections = document.querySelectorAll('[data-section]');
+    sections.forEach(observeSection);
+  }, [observeSection]);
 
-    return () => observer.disconnect();
+  // Optimized scroll handler
+  const handleScroll = useCallback(() => {
+    if (scrollRef.current) {
+      smoothScroll(scrollRef.current);
+    }
   }, []);
 
-  // Performance Stats Data
-  const performanceStats = [
-    { icon: Gauge, stat: "320 PS", label: "Max Power" },
-    { icon: Settings, stat: "2.0L mStallion", label: "Engine" },
-    { icon: Fuel, stat: "20.5 kmpl", label: "Mileage" },
-    { icon: Clock, stat: "6.5 sec", label: "0-100 km/h" },
-    { icon: Wrench, stat: "4x4", label: "Drive System" }
-  ];
-
-  // Heritage Stats Data
-  const heritageStats = [
-    { label: "Made in India", value: "100%" },
-    { label: "Service Centers", value: "1000+" },
-    { label: "Cities Covered", value: "500+" },
-    { label: "Happy Customers", value: "2M+" }
-  ];
+  // Canvas optimization
+  const canvasProps = useMemo(() => ({
+    camera: { position: [0, 2, 10], fov: 45 },
+    dpr: Math.min(window.devicePixelRatio, 2),
+    performance: { min: 0.5 },
+    gl: { 
+      antialias: true,
+      powerPreference: "high-performance",
+      alpha: false,
+      stencil: false,
+      logarithmicDepthBuffer: true, // Better depth precision
+      toneMapping: THREE.ACESFilmicToneMapping, // Enhanced color reproduction
+      toneMappingExposure: 1.2, // Slightly brighter
+    }
+  }), []);
 
   return (
     <div className="bg-black text-white">
@@ -284,22 +446,17 @@ function HomePage() {
 
           <div className="relative max-w-6xl mx-auto">
             <div className="h-[80vh]">
-              <Canvas
-                camera={{ position: [0, 2, 10], fov: 45 }}
-                dpr={[1, 2]}
-                performance={{ min: 0.5 }}
-                gl={{ antialias: true }}
-              >
-                <ambientLight intensity={0.5} />
-                <directionalLight position={[10, 10, 5]} intensity={1} castShadow />
-                <Suspense fallback={<LoadingFallback />}>
-                  <AutoRotatingModel onLoad={() => {
-                    setIsLoading(false);
-                    setIsModelVisible(true);
-                  }} />
-                  <Preload all />
-                </Suspense>
-              </Canvas>
+            <Canvas {...canvasProps}>
+      <Suspense fallback={<LoadingFallback />}>
+        <AutoRotatingModel 
+          onLoad={() => {
+            setIsLoading(false);
+            setIsModelVisible(true);
+          }} 
+        />
+        <Preload all />
+      </Suspense>
+    </Canvas>
 
               {isModelVisible && (
                 <div className="absolute inset-0 pointer-events-none">
@@ -317,6 +474,7 @@ function HomePage() {
                   >
                     WORLD-CLASS ENGINEERING
                   </FeatureLabel>
+
                   <FeatureLabel 
                     className="absolute top-[30%] left-[15%]"
                     icon={Award}
@@ -352,7 +510,7 @@ function HomePage() {
                 <ArrowRight className="group-hover:translate-x-1 transition-transform" />
               </button>
               <button
-                onClick={() => scrollRef.current?.scrollIntoView({ behavior: 'smooth' })}
+                onClick={handleScroll}
                 className="text-white animate-bounce"
                 aria-label="Scroll to content"
               >
@@ -398,7 +556,6 @@ function HomePage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
             <div>
               <h2 className="text-4xl font-bold mb-8">Indian Engineering Excellence</h2>
-
               <p className="text-zinc-400 text-lg leading-relaxed mb-8">
                 Experience the pinnacle of Indian automotive innovation. Our vehicles are designed, developed, and manufactured in India, embodying the spirit of Atmanirbhar Bharat while setting new benchmarks in global automotive excellence.
               </p>
@@ -417,6 +574,7 @@ function HomePage() {
                 src="/api/placeholder/600/400"
                 alt="Indian Manufacturing Excellence"
                 className="w-full h-full object-cover rounded-lg"
+                loading="lazy"
               />
             </div>
           </div>
@@ -431,23 +589,7 @@ function HomePage() {
         <div className="max-w-6xl mx-auto px-8">
           <h2 className="text-5xl font-bold mb-16 text-center">Advanced Technology</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-            {[
-              {
-                icon: Shield,
-                title: "Safety First",
-                description: "5-star safety rating with advanced driver assistance systems and multiple airbags for complete peace of mind."
-              },
-              {
-                icon: Settings,
-                title: "Smart Features",
-                description: "Connected car technology with smartphone integration, voice commands, and over-the-air updates."
-              },
-              {
-                icon: MapPin,
-                title: "Local Innovation",
-                description: "Designed for Indian roads with advanced terrain management and climate control systems."
-              }
-            ].map(({ icon: Icon, title, description }) => (
+            {technicalFeatures.map(({ icon: Icon, title, description }) => (
               <div 
                 key={title} 
                 className="bg-zinc-900/50 p-8 rounded-xl hover:bg-zinc-800/50 transition-all duration-300"

@@ -18,7 +18,6 @@ import {
 
 // Color mapping function
 const getColorHex = (colorName) => {
-  // Basic color mapping
   const colorMap = {
     black: '#000000',
     white: '#FFFFFF',
@@ -35,7 +34,6 @@ const getColorHex = (colorName) => {
     bronze: '#CD7F32',
     pearl: '#F0EAD6',
     metallic: '#C0C0C0',
-    // Add common car colors
     'pearl white': '#FAFAFA',
     'midnight black': '#141414',
     'racing red': '#FF0000',
@@ -52,15 +50,12 @@ const getColorHex = (colorName) => {
     'graphite grey': '#383838',
   };
 
-  // Clean the color name and convert to lowercase
   const cleanColorName = colorName.toLowerCase().trim();
 
-  // Try to find an exact match first
   if (colorMap[cleanColorName]) {
     return colorMap[cleanColorName];
   }
 
-  // If no exact match, try to find a partial match
   const partialMatch = Object.entries(colorMap).find(([key]) => 
     cleanColorName.includes(key) || key.includes(cleanColorName)
   );
@@ -69,8 +64,7 @@ const getColorHex = (colorName) => {
     return partialMatch[1];
   }
 
-  // Default fallback color if no match found
-  return '#808080'; // Default to gray if color not found
+  return '#808080';
 };
 
 const ColorSwatch = ({ colorName }) => {
@@ -80,12 +74,11 @@ const ColorSwatch = ({ colorName }) => {
   useEffect(() => {
     const setColor = async () => {
       try {
-        // Get the color hex directly from our mapping function
         const hex = getColorHex(colorName);
         setColorHex(hex);
       } catch (error) {
         console.error('Error setting color:', error);
-        setColorHex('#808080'); // Fallback to gray
+        setColorHex('#808080');
       } finally {
         setIsLoading(false);
       }
@@ -134,9 +127,13 @@ const CarDetailsPage = () => {
     const fetchCarDetails = async () => {
       try {
         setLoading(true);
-        const response = await fetch('/data/test.json');
+        const response = await fetch("https://api.jsonbin.io/v3/b/67aa4297acd3cb34a8dce65f", {
+          headers: {
+            "X-Master-Key": "$2a$10$m.41BaxaqeIliqWf2bCrp.pqQse.5gbVIjW44xtPwPXvP2oQvk40C"
+          }
+        });
         const data = await response.json();
-        const selectedCar = data.find(car => car.id === id);
+        const selectedCar = data.record.find(car => car.id === id);
         
         if (selectedCar) {
           setCar(selectedCar);
@@ -162,7 +159,6 @@ const CarDetailsPage = () => {
     }).format(price);
   };
 
-  // Navbar Component
   const Navbar = () => (
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
       isScrolled ? 'bg-black/95 backdrop-blur-sm shadow-lg' : 'bg-transparent'
@@ -247,15 +243,12 @@ const CarDetailsPage = () => {
     <div className="w-full min-h-screen bg-gradient-to-b from-black to-gray-950 text-white">
       <Navbar />
       
-      {/* Main Image Section - Full Width */}
       <div className="relative h-[80vh] w-full mb-8 pt-16">
-        {/* Background Blur Effect */}
         <div 
           className="absolute inset-0 bg-cover bg-center blur-2xl opacity-30 scale-110"
           style={{ backgroundImage: `url(${car.imageUrl})` }}
         />
         
-        {/* Main Image */}
         <div className="relative h-full flex items-center justify-center">
           <img
             src={car.imageUrl}
@@ -266,7 +259,6 @@ const CarDetailsPage = () => {
             onLoad={() => setImageLoaded(true)}
           />
           
-          {/* Loading State */}
           {!imageLoaded && (
             <div className="absolute inset-0 flex items-center justify-center">
               <CarFront className="w-20 h-20 text-gray-800 animate-pulse" />
@@ -274,7 +266,6 @@ const CarDetailsPage = () => {
           )}
         </div>
 
-        {/* Navigation Controls */}
         <div className="absolute bottom-4 left-8 right-8 flex justify-between">
           <button 
             onClick={() => navigate('/cars')}
@@ -283,20 +274,12 @@ const CarDetailsPage = () => {
             <ArrowLeft className="w-5 h-5" />
             <span className="opacity-0 group-hover:opacity-100 transition-opacity">Back to Cars</span>
           </button>
-          {/*
-          <button className="p-3 bg-black/50 backdrop-blur-sm rounded-full hover:bg-orange-600 transition-all duration-300 group flex items-center gap-2">
-            <span className="opacity-0 group-hover:opacity-100 transition-opacity">Next</span>
-            <ArrowRight className="w-5 h-5" />
-          </button> */}
         </div>
       </div>
 
-      {/* Content Section */}
       <div className="max-w-7xl mx-auto px-8">
         <div className="grid lg:grid-cols-12 gap-12 mb-12">
-          {/* Main Content Column */}
           <div className="lg:col-span-8 space-y-12">
-            {/* Basic Info */}
             <div className="space-y-8">
               <div>
                 <h1 className="text-5xl font-bold mb-4">{car.brand} {car.model}</h1>
@@ -317,7 +300,6 @@ const CarDetailsPage = () => {
               </p>
             </div>
 
-            {/* Features Grid */}
             <div className="grid grid-cols-2 gap-4">
               {features.map(({ icon: Icon, label, value }) => (
                 <div 
@@ -333,7 +315,6 @@ const CarDetailsPage = () => {
               ))}
             </div>
 
-            {/* Color Options */}
             <div className="bg-black/50 backdrop-blur-sm p-8 rounded-xl border border-gray-800/50">
               <h3 className="text-xl font-semibold mb-6">Available Colors</h3>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
@@ -344,55 +325,55 @@ const CarDetailsPage = () => {
             </div>
 
             <div className="bg-black/50 backdrop-blur-sm p-8 rounded-xl border border-gray-800/50">
-        <h3 className="text-xl font-semibold mb-6">Technical Specifications</h3>
-        <div className="grid md:grid-cols-2 gap-6">
-          <div className="space-y-4">
-            <div className="flex justify-between items-center p-3 bg-black/30 rounded-lg">
-              <span className="text-gray-400">Body Type</span>
-              <span className="font-medium">{car.bodyType}</span>
-            </div>
-            <div className="flex justify-between items-center p-3 bg-black/30 rounded-lg">
-              <span className="text-gray-400">Engine</span>
-              <span className="font-medium">{car.engineCC} CC</span>
-            </div>
-            <div className="flex justify-between items-center p-3 bg-black/30 rounded-lg">
-              <span className="text-gray-400">Transmission</span>
-              <span className="font-medium">{car.transmission}</span>
-            </div>
-            <div className="flex justify-between items-center p-3 bg-black/30 rounded-lg">
-              <span className="text-gray-400">Power</span>
-              <span className="font-medium">{car.power} bhp</span>
-            </div>
-            <div className="flex justify-between items-center p-3 bg-black/30 rounded-lg">
-              <span className="text-gray-400">Torque</span>
-              <span className="font-medium">{car.torqueNm} Nm</span>
+              <h3 className="text-xl font-semibold mb-6">Technical Specifications</h3>
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="space-y-4">
+                  <div className="flex justify-between items-center p-3 bg-black/30 rounded-lg">
+                    <span className="text-gray-400">Body Type</span>
+                    <span className="font-medium">{car.bodyType}</span>
+                  </div>
+                  <div className="flex justify-between items-center p-3 bg-black/30 rounded-lg">
+                    <span className="text-gray-400">Engine</span>
+                    <span className="font-medium">{car.engineCC} CC</span>
+                  </div>
+                  <div className="flex justify-between items-center p-3 bg-black/30 rounded-lg">
+                    <span className="text-gray-400">Transmission</span>
+                    <span className="font-medium">{car.transmission}</span>
+                  </div>
+                  <div className="flex justify-between items-center p-3 bg-black/30 rounded-lg">
+                    <span className="text-gray-400">Power</span>
+                    <span className="font-medium">{car.power} bhp</span>
+                  </div>
+                  <div className="flex justify-between items-center p-3 bg-black/30 rounded-lg">
+                    <span className="text-gray-400">Torque</span>
+                    <span className="font-medium">{car.torqueNm} Nm</span>
+                  </div>
+                </div>
+                <div className="space-y-4">
+                  <div className="flex justify-between items-center p-3 bg-black/30 rounded-lg">
+                    <span className="text-gray-400">Top Speed</span>
+                    <span className="font-medium">{car.topSpeedKmh} km/h</span>
+                  </div>
+                  <div className="flex justify-between items-center p-3 bg-black/30 rounded-lg">
+                    <span className="text-gray-400">Acceleration (0-100)</span>
+                    <span className="font-medium">{car.acceleration0100Sec} sec</span>
+                  </div>
+                  <div className="flex justify-between items-center p-3 bg-black/30 rounded-lg">
+                    <span className="text-gray-400">Fuel Tank</span>
+                    <span className="font-medium">{car.fuelTankCapacityL} L</span>
+                  </div>
+                  <div className="flex justify-between items-center p-3 bg-black/30 rounded-lg">
+                    <span className="text-gray-400">Ground Clearance</span>
+                    <span className="font-medium">{car.groundClearanceMm} mm</span>
+                  </div>
+                  <div className="flex justify-between items-center p-3 bg-black/30 rounded-lg">
+                    <span className="text-gray-400">Fuel Type</span>
+                    <span className="font-medium">{car.fuelType}</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-          <div className="space-y-4">
-            <div className="flex justify-between items-center p-3 bg-black/30 rounded-lg">
-              <span className="text-gray-400">Top Speed</span>
-              <span className="font-medium">{car.topSpeedKmh} km/h</span>
-            </div>
-            <div className="flex justify-between items-center p-3 bg-black/30 rounded-lg">
-              <span className="text-gray-400">Acceleration (0-100)</span>
-              <span className="font-medium">{car.acceleration0100Sec} sec</span>
-            </div>
-            <div className="flex justify-between items-center p-3 bg-black/30 rounded-lg">
-              <span className="text-gray-400">Fuel Tank</span>
-              <span className="font-medium">{car.fuelTankCapacityL} L</span>
-            </div>
-            <div className="flex justify-between items-center p-3 bg-black/30 rounded-lg">
-              <span className="text-gray-400">Ground Clearance</span>
-              <span className="font-medium">{car.groundClearanceMm} mm</span>
-            </div>
-            <div className="flex justify-between items-center p-3 bg-black/30 rounded-lg">
-              <span className="text-gray-400">Fuel Type</span>
-              <span className="font-medium">{car.fuelType}</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      </div>
 
           {/* Price and CTA Column */}
           <div className="lg:col-span-4">
@@ -411,9 +392,9 @@ const CarDetailsPage = () => {
                 </button>
               
                 <button className="w-full bg-black/20 text-white rounded-xl py-4 border border-white/10 hover:bg-white/5 transition-colors flex items-center justify-center gap-2">
-              <Download className="w-5 h-5" />
-              Download Brochure
-            </button>
+                  <Download className="w-5 h-5" />
+                  Download Brochure
+                </button>
               </div>
             </div>
           </div>
