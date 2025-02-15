@@ -1,0 +1,581 @@
+{
+  "vehicles": [
+    {
+      "model": "Tata Nexon",
+      "category": "SUV",
+      "variants": [
+        {
+          "name": "Nexon EV Max",
+          "type": "Electric",
+          "specifications": {
+            "engine": "Permanent Magnet Synchronous Motor",
+            "power": "143 bhp",
+            "battery": "40.5 kWh",
+            "range": "437 km",
+            "transmission": "Single Speed Automatic",
+            "seating": 5,
+            "ground_clearance": "205 mm",
+            "boot_space": "350 L",
+            "features": [
+              "Connected Car Technology",
+              "Electronic Stability Program",
+              "Hill Assist",
+              "Multi-Drive Modes"
+            ]
+          }
+        },
+        {
+          "name": "Nexon Dark Edition",
+          "type": "Petrol",
+          "specifications": {
+            "engine": "1.2L Turbocharged Revotron",
+            "displacement": "1199 cc",
+            "power": "120 bhp",
+            "torque": "170 Nm",
+            "transmission": ["6-Speed Manual", "7-Speed DCT"],
+            "mileage": "17.01 kmpl",
+            "seating": 5,
+            "ground_clearance": "205 mm",
+            "boot_space": "382 L"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Tata Harrier",
+      "category": "SUV",
+      "variants": [
+        {
+          "name": "Harrier Red Dark",
+          "type": "Diesel",
+          "specifications": {
+            "engine": "2.0L Kryotec Turbocharged",
+            "displacement": "1956 cc",
+            "power": "170 bhp",
+            "torque": "350 Nm",
+            "transmission": ["6-Speed Manual", "6-Speed Automatic"],
+            "mileage": "16.35 kmpl",
+            "seating": 5,
+            "ground_clearance": "205 mm",
+            "boot_space": "425 L"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Tata Safari",
+      "category": "SUV",
+      "variants": [
+        {
+          "name": "Safari Red Dark",
+          "type": "Diesel",
+          "specifications": {
+            "engine": "2.0L Kryotec Turbocharged",
+            "displacement": "1956 cc",
+            "power": "170 bhp",
+            "torque": "350 Nm",
+            "transmission": ["6-Speed Manual", "6-Speed Automatic"],
+            "mileage": "16.14 kmpl",
+            "seating": 7,
+            "ground_clearance": "205 mm",
+            "boot_space": "447 L"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Tata Punch",
+      "category": "Micro SUV",
+      "variants": [
+        {
+          "name": "Punch Camo",
+          "type": "Petrol",
+          "specifications": {
+            "engine": "1.2L Revotron",
+            "displacement": "1199 cc",
+            "power": "88 bhp",
+            "torque": "113 Nm",
+            "transmission": ["5-Speed Manual", "5-Speed AMT"],
+            "mileage": "20.09 kmpl",
+            "seating": 5,
+            "ground_clearance": "187 mm",
+            "boot_space": "366 L"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Tata Altroz",
+      "category": "Hatchback",
+      "variants": [
+        {
+          "name": "Altroz DCA",
+          "type": "Petrol",
+          "specifications": {
+            "engine": "1.2L Revotron",
+            "displacement": "1199 cc",
+            "power": "86 bhp",
+            "torque": "113 Nm",
+            "transmission": ["5-Speed Manual", "6-Speed DCA"],
+            "mileage": "19.05 kmpl",
+            "seating": 5,
+            "ground_clearance": "165 mm",
+            "boot_space": "345 L"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Tata Tiago",
+      "category": "Hatchback",
+      "variants": [
+        {
+          "name": "Tiago EV",
+          "type": "Electric",
+          "specifications": {
+            "engine": "Permanent Magnet Synchronous Motor",
+            "power": "74 bhp",
+            "battery": "24 kWh",
+            "range": "315 km",
+            "transmission": "Single Speed Automatic",
+            "seating": 5,
+            "ground_clearance": "161 mm",
+            "boot_space": "240 L"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Tata Tigor",
+      "category": "Sedan",
+      "variants": [
+        {
+          "name": "Tigor EV",
+          "type": "Electric",
+          "specifications": {
+            "engine": "Permanent Magnet Synchronous Motor",
+            "power": "74 bhp",
+            "battery": "26 kWh",
+            "range": "315 km",
+            "transmission": "Single Speed Automatic",
+            "seating": 5,
+            "ground_clearance": "161 mm",
+            "boot_space": "316 L"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Tata Curvv",
+      "category": "Electric SUV Coupe",
+      "variants": [
+        {
+          "name": "Curvv EV",
+          "type": "Electric",
+          "specifications": {
+            "battery": "60 kWh",
+            "estimated_range": "500 km",
+            "seating": 5,
+            "features": [
+              "Dual Motor Setup",
+              "Advanced Driver Assistance",
+              "Connected Car Features"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "model": "Tata Ace EV",
+      "category": "Commercial",
+      "variants": [
+        {
+          "name": "Ace EV",
+          "type": "Electric",
+          "specifications": {
+            "motor": "27 kW",
+            "battery": "21.3 kWh",
+            "range": "154 km",
+            "payload": "600 kg",
+            "charging_time": "6-8 hours (normal charging)"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Tata Prima",
+      "category": "Commercial Truck",
+      "variants": [
+        {
+          "name": "Prima 3530.K",
+          "type": "Diesel",
+          "specifications": {
+            "engine": "Cummins ISBe 6.7",
+            "power": "300 hp",
+            "torque": "1100 Nm",
+            "transmission": "9-Speed Manual",
+            "gross_vehicle_weight": "35000 kg"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Tata Ultra",
+      "category": "Commercial",
+      "variants": [
+        {
+          "name": "Ultra T.7",
+          "type": "Diesel",
+          "specifications": {
+            "engine": "4SPCR",
+            "power": "100 hp",
+            "payload": "7200 kg",
+            "fuel_tank": "140 L"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Tata Yodha",
+      "category": "Commercial Pickup",
+      "variants": [
+        {
+          "name": "Yodha Pickup",
+          "type": "Diesel",
+          "specifications": {
+            "engine": "2.2L",
+            "power": "100 hp",
+            "payload": "1700 kg",
+            "transmission": "5-Speed Manual"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Tata Intra",
+      "category": "Commercial",
+      "variants": [
+        {
+          "name": "Intra V30",
+          "type": "Diesel",
+          "specifications": {
+            "engine": "1.5L",
+            "power": "70 hp",
+            "payload": "1300 kg",
+            "fuel_tank": "40 L"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Tata Magic",
+      "category": "Commercial",
+      "variants": [
+        {
+          "name": "Magic Express",
+          "type": "Diesel",
+          "specifications": {
+            "engine": "800 cc",
+            "power": "44 hp",
+            "seating": "7+1",
+            "fuel_tank": "30 L"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Tata Winger",
+      "category": "Commercial Van",
+      "variants": [
+        {
+          "name": "Winger Luxury",
+          "type": "Diesel",
+          "specifications": {
+            "engine": "2.2L DICOR",
+            "power": "100 hp",
+            "seating": "13-17",
+            "fuel_tank": "60 L"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Tata Starbus",
+      "category": "Commercial Bus",
+      "variants": [
+        {
+          "name": "Starbus Ultra",
+          "type": "Diesel",
+          "specifications": {
+            "engine": "5.0L Cummins",
+            "power": "180 hp",
+            "seating": "32-41",
+            "fuel_tank": "160 L"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Tata LP 712",
+      "category": "Commercial Truck",
+      "variants": [
+        {
+          "name": "LP 712 Ex",
+          "type": "Diesel",
+          "specifications": {
+            "engine": "3.3L",
+            "power": "123 hp",
+            "payload": "7200 kg",
+            "fuel_tank": "160 L"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Tata 407",
+      "category": "Commercial Truck",
+      "variants": [
+        {
+          "name": "407 Gold SFC",
+          "type": "Diesel",
+          "specifications": {
+            "engine": "3.0L",
+            "power": "100 hp",
+            "payload": "4700 kg",
+            "fuel_tank": "60 L"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Tata Signa",
+      "category": "Commercial Truck",
+      "variants": [
+        {
+          "name": "Signa 4825.T",
+          "type": "Diesel",
+          "specifications": {
+            "engine": "Cummins 6.7L",
+            "power": "250 hp",
+            "torque": "950 Nm",
+            "gross_vehicle_weight": "47500 kg"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Tata Ultra Electric",
+      "category": "Commercial Electric Truck",
+      "variants": [
+        {
+          "name": "Ultra EV",
+          "type": "Electric",
+          "specifications": {
+            "motor": "Permanent Magnet Synchronous",
+            "power": "200 kW",
+            "battery": "100 kWh",
+            "range": "300 km",
+            "payload": "5500 kg"
+          }
+        }
+      ]
+    },
+    {
+      "model": "XUV700",
+      "category": "Premium SUV",
+      "variants": [
+        {
+          "name": "XUV700 AX7L Luxury",
+          "type": "Petrol",
+          "specifications": {
+            "engine": "2.0L mStallion TGDi",
+            "displacement": "1999 cc",
+            "power": "200 bhp",
+            "torque": "380 Nm",
+            "transmission": ["6-Speed Manual", "6-Speed Automatic"],
+            "mileage": "14.3 kmpl",
+            "seating": 7,
+            "ground_clearance": "200 mm",
+            "boot_space": "390 L",
+            "features": [
+              "ADAS Level 2",
+              "Panoramic Sunroof",
+              "AdrenoX Connected Car Tech",
+              "Sony 3D Sound System"
+            ]
+          }
+        },
+        {
+          "name": "XUV700 AX7L Diesel",
+          "type": "Diesel",
+          "specifications": {
+            "engine": "2.2L mHawk",
+            "displacement": "2198 cc",
+            "power": "185 bhp",
+            "torque": "450 Nm",
+            "transmission": ["6-Speed Manual", "6-Speed Automatic"],
+            "mileage": "16.5 kmpl",
+            "seating": 7,
+            "ground_clearance": "200 mm",
+            "boot_space": "390 L"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Scorpio-N",
+      "category": "SUV",
+      "variants": [
+        {
+          "name": "Scorpio-N Z8L",
+          "type": "Diesel",
+          "specifications": {
+            "engine": "2.2L mHawk",
+            "displacement": "2198 cc",
+            "power": "175 bhp",
+            "torque": "400 Nm",
+            "transmission": ["6-Speed Manual", "6-Speed Automatic"],
+            "mileage": "15.4 kmpl",
+            "seating": 7,
+            "ground_clearance": "187 mm",
+            "features": [
+              "4XPLOR Terrain Management",
+              "Connected Car Tech",
+              "Sony Audio System",
+              "Dual-Zone Climate Control"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "model": "Thar",
+      "category": "Lifestyle SUV",
+      "variants": [
+        {
+          "name": "Thar LX",
+          "type": "Petrol",
+          "specifications": {
+            "engine": "2.0L mStallion",
+            "displacement": "1997 cc",
+            "power": "150 bhp",
+            "torque": "320 Nm",
+            "transmission": ["6-Speed Manual", "6-Speed Automatic"],
+            "mileage": "12.5 kmpl",
+            "seating": 4,
+            "ground_clearance": "226 mm",
+            "features": [
+              "4x4 with Manual Shift",
+              "Brake Locking Differential",
+              "Adventure Statistics Display",
+              "Washable Interior"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "model": "XUV300",
+      "category": "Compact SUV",
+      "variants": [
+        {
+          "name": "XUV300 W8 (O)",
+          "type": "Petrol",
+          "specifications": {
+            "engine": "1.2L mStallion TGDi",
+            "displacement": "1197 cc",
+            "power": "110 bhp",
+            "torque": "200 Nm",
+            "transmission": ["6-Speed Manual", "6-Speed AMT"],
+            "mileage": "17 kmpl",
+            "seating": 5,
+            "ground_clearance": "180 mm",
+            "boot_space": "257 L"
+          }
+        }
+      ]
+    },
+    {
+      "model": "XUV400 EV",
+      "category": "Electric SUV",
+      "variants": [
+        {
+          "name": "XUV400 EL",
+          "type": "Electric",
+          "specifications": {
+            "motor": "Permanent Magnet Synchronous",
+            "power": "150 bhp",
+            "torque": "310 Nm",
+            "battery": "39.4 kWh",
+            "range": "456 km",
+            "transmission": "Single Speed Automatic",
+            "seating": 5,
+            "ground_clearance": "180 mm",
+            "boot_space": "378 L"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Bolero",
+      "category": "SUV",
+      "variants": [
+        {
+          "name": "Bolero B6 (O)",
+          "type": "Diesel",
+          "specifications": {
+            "engine": "1.5L mHawk75",
+            "displacement": "1493 cc",
+            "power": "75 bhp",
+            "torque": "210 Nm",
+            "transmission": "5-Speed Manual",
+            "mileage": "16.7 kmpl",
+            "seating": 7,
+            "ground_clearance": "180 mm"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Bolero Neo",
+      "category": "SUV",
+      "variants": [
+        {
+          "name": "Bolero Neo N10",
+          "type": "Diesel",
+          "specifications": {
+            "engine": "1.5L mHawk100",
+            "displacement": "1493 cc",
+            "power": "100 bhp",
+            "torque": "260 Nm",
+            "transmission": "5-Speed Manual",
+            "mileage": "17.3 kmpl",
+            "seating": 7,
+            "ground_clearance": "184 mm"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Marazzo",
+      "category": "MPV",
+      "variants": [
+        {
+          "name": "Marazzo M6+",
+          "type": "Diesel",
+          "specifications": {
+            "engine": "1.5L",
+            "displacement": "1497 cc",
+            "power": "121 bhp",
+            "torque": "300 Nm",
+            "transmission": "6-Speed Manual",
+            "mileage": "17.3 kmpl",
+            "seating": 8,
+            "boot_space": "190 L"
+          }
+        }
+      ]
+    }
+  ]
+}
+    
