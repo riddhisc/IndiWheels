@@ -1,32 +1,55 @@
-import { Link, useLocation } from 'react-router-dom';
-import { Home, Car, Menu } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { Home } from 'lucide-react';
 
 const Navbar = () => {
-  const location = useLocation();
+  const [isScrolled, setIsScrolled] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
-    <nav className="bg-[#1E1F2E] fixed left-0 h-screen w-16 flex flex-col items-center py-4 space-y-8">
-      <div className="text-purple-600">
-        <Car size={28} />
-      </div>
-      
-      <div className="flex flex-col space-y-6">
-        <Link 
-          to="/" 
-          className={`p-2 rounded-lg ${location.pathname === '/' ? 'bg-purple-600' : 'text-gray-400 hover:bg-purple-600/20'}`}
-        > 
-          <Home size={24} />
-        </Link>
-        <Link 
-          to="/cars" 
-          className={`p-2 rounded-lg ${location.pathname === '/cars' ? 'bg-purple-600' : 'text-gray-400 hover:bg-purple-600/20'}`}
-        >
-          <Car size={24} />
-        </Link>
-      </div>
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      isScrolled ? 'bg-black/95 backdrop-blur-sm shadow-lg' : 'bg-transparent'
+    }`}>
+      <div className="max-w-7xl mx-auto px-4">
+        <div className="flex items-center justify-between h-16">
+          <Link 
+            to="/" 
+            className="flex items-center space-x-2 text-white hover:text-orange-500 transition-colors"
+          >
+            <Home className="w-6 h-6" />
+            <span className="font-bold">IndiWheels</span>
+          </Link>
 
-      <div className="mt-auto text-gray-400 hover:text-white cursor-pointer">
-        <Menu size={24} />
+          <div className="flex items-center space-x-8">
+            <Link 
+              to="/" 
+              className="text-gray-300 hover:text-orange-500 transition-colors"
+            >
+              Home
+            </Link>
+            <Link 
+              to="/cars" 
+              className="text-orange-500 font-medium"
+            >
+              Cars
+            </Link>
+            <button
+              onClick={() => navigate('/cars')}
+              className="bg-orange-600 text-white px-4 py-2 rounded-full hover:bg-orange-700 transition-all duration-300 transform hover:scale-105"
+            >
+              Book Test Drive
+            </button>
+          </div>
+        </div>
       </div>
     </nav>
   );

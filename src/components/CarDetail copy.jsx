@@ -27,7 +27,7 @@ const Navbar = () => {
             className="flex items-center space-x-2 text-white hover:text-orange-500 transition-colors"
           >
             <Home className="w-6 h-6" />
-            <span className="font-bold">Indian Motors</span>
+            <span className="font-bold">IndiWheels</span>
           </Link>
 
           <div className="flex items-center space-x-8">

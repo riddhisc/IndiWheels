@@ -1,63 +1,11 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Filter, RotateCcw, Search, ChevronUp, Home } from 'lucide-react';
-import { Link, useNavigate } from 'react-router-dom';
-import CarCard from './CarCard';
+import { Filter, RotateCcw, Search, ChevronUp } from 'lucide-react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+import CarCard from './CarCard';  
 
-// Navbar Component
-const Navbar = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-      isScrolled ? 'bg-black/95 backdrop-blur-sm shadow-lg' : 'bg-transparent'
-    }`}>
-      <div className="max-w-7xl mx-auto px-4">
-        <div className="flex items-center justify-between h-16">
-          <Link 
-            to="/" 
-            className="flex items-center space-x-2 text-white hover:text-orange-500 transition-colors"
-          >
-            <Home className="w-6 h-6" />
-            <span className="font-bold">Indian Motors</span>
-          </Link>
-
-          <div className="flex items-center space-x-8">
-            <Link 
-              to="/" 
-              className="text-gray-300 hover:text-orange-500 transition-colors"
-            >
-              Home
-            </Link>
-            <Link 
-              to="/cars" 
-              className="text-orange-500 font-medium"
-            >
-              Cars
-            </Link>
-            <button
-              onClick={() => navigate('/cars')}
-              className="bg-orange-600 text-white px-4 py-2 rounded-full hover:bg-orange-700 transition-all duration-300 transform hover:scale-105"
-            >
-              Book Test Drive
-            </button>
-          </div>
-        </div>
-      </div>
-    </nav>
-  );
-};
-
+// Main CarListing Component
 const CarListing = () => {
+  const location = useLocation();
   const [cars, setCars] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -68,6 +16,15 @@ const CarListing = () => {
   const [maxPrice, setMaxPrice] = useState(10000000);
   const [defaultMaxPrice, setDefaultMaxPrice] = useState(10000000);
   const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    // Check if we have a brand filter from navigation
+    if (location.state?.selectedBrand && location.state?.autoFilter) {
+      setSelectedBrand(location.state.selectedBrand);
+      // Clear the navigation state to prevent persisting filter
+      window.history.replaceState({}, document.title);
+    }
+  }, [location]);
 
   const scrollToTop = useCallback(() => {
     const start = window.pageYOffset;
@@ -130,7 +87,6 @@ const CarListing = () => {
       return response.json();
     })
     .then(data => {
-      // Extract the actual car data from the 'record' field
       const carsArray = Array.isArray(data.record) ? data.record : data.record.carsData || [];
       setCars(carsArray);
       
@@ -198,8 +154,6 @@ const CarListing = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-black to-gray-950 relative">
-      <Navbar />
-      
       <div className="max-w-7xl mx-auto px-4">
         <div className="pt-24 pb-8 space-y-8">
           <div className="text-white space-y-2">
