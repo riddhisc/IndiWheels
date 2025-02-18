@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
+import CarLoadingAnimation from './CarLoadingAnimation';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { 
@@ -161,14 +162,7 @@ const CarDetailsPage = () => {
 
  
   if (loading) {
-    return (
-      <div className="w-full min-h-screen bg-gradient-to-b from-black to-gray-950 text-white">
-        <div className="text-xl flex items-center gap-3">
-          <div className="w-6 h-6 border-2 border-orange-500 border-t-transparent rounded-full animate-spin" />
-          Loading...
-        </div>
-      </div>
-    );
+    return <CarLoadingAnimation message="Loading car details..." />;
   }
 
   if (error) {

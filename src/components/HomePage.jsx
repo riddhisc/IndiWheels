@@ -402,7 +402,7 @@ function HomePage() {
 
   return (
     <div className="bg-black text-white">
-      <section data-section="hero" className="min-h-screen relative">
+      <section data-section="hero" className="min-h-screen relative pt-16">
         <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black z-10"></div>
         
         <div className="relative z-20">

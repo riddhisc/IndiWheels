@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { Filter, RotateCcw, Search, ChevronUp } from 'lucide-react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import CarCard from './CarCard';  
+import CarLoadingAnimation from './CarLoadingAnimation';
 
 // Main CarListing Component
 const CarListing = () => {
@@ -114,11 +115,7 @@ const CarListing = () => {
   };
 
   if (loading) {
-    return (
-      <div className="min-h-screen bg-gray-950 flex items-center justify-center">
-        <div className="text-white text-xl">Loading cars...</div>
-      </div>
-    );
+    return <CarLoadingAnimation message="Fetching available cars..." />;
   }
 
   if (error) {
