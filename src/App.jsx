@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import HomePage from './components/HomePage';
 import CarListing from './components/CarListing';
 import CarDetail from './components/CarDetail';
+import AboutPage from './components/AboutPage';
 //import CarModel from './components/CarModel';
 import Navbar from './components/Navbar';
 import './index.css';
@@ -14,6 +15,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/cars" element={<CarListing />} />
+          <Route path="/about" element={<AboutPage />} />
           <Route path="/cardetail/:id" element={<CarDetail />} /> 
         </Routes>
       </div>

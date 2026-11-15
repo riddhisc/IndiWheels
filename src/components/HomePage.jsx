@@ -1,4 +1,3 @@
-
 import React, { Suspense, useEffect, useRef, useState, useCallback, useMemo } from "react";
 import { Canvas } from "@react-three/fiber";
 import * as THREE from "three";
@@ -6,40 +5,31 @@ import { OrbitControls, useGLTF, Html, Preload, useProgress } from "@react-three
 import { useNavigate } from "react-router-dom";
 import { 
   ChevronDown, 
-  Gauge, 
   ArrowRight,
   Star,
   IndianRupee,
-  Fuel,
-  Settings,
   Award,
   Factory,
   Wrench,
   Play,
   Pause,
-  Volume2, 
+  Volume2,
   VolumeX,
-  Clock,
-  Shield,
-  MapPin,
-  Heart,
-  Users,
-  Truck,
   Globe,
   Zap
 } from "lucide-react";
 
-// Model Components remain the same
+// Original Draco asset is public/models/gtb.glb. The page loads the meshopt
+// version so the car does not wait on 247 Draco decodes or the gstatic decoder.
+const MODEL_PATH = `${import.meta.env.BASE_URL}models/gtb-fast.glb`;
+useGLTF.preload(MODEL_PATH, false, true);
+
 function Model({ onLoad }) {
-  const modelPath = `${import.meta.env.BASE_URL}models/gtb.glb`;
-  const { scene } = useGLTF(modelPath, true);
-  const { progress } = useProgress();
-  
+  const { scene } = useGLTF(MODEL_PATH, false, true);
+
   useEffect(() => {
-    if (progress === 100) {
-      onLoad();
-    }
-  }, [progress, onLoad]);
+    onLoad();
+  }, [onLoad]);
 
   return <primitive object={scene} scale={2} />;
 }
@@ -48,9 +38,15 @@ function AutoRotatingModel({ onLoad }) {
   const orbitControlsRef = useRef();
 
   useEffect(() => {
-    if (orbitControlsRef.current) {
-      orbitControlsRef.current.autoRotate = true;
-      orbitControlsRef.current.autoRotateSpeed = 2;
+    const controls = orbitControlsRef.current;
+    if (!controls) return;
+    controls.autoRotate = true;
+    controls.autoRotateSpeed = 2;
+    controls.enableZoom = false;
+    controls.enablePan = false;
+    if (controls.domElement) controls.domElement.style.touchAction = "pan-y";
+    if (controls._domElementKeyEvents && typeof controls.stopListenToKeyEvents === "function") {
+      controls.stopListenToKeyEvents();
     }
   }, []);
 
@@ -60,10 +56,15 @@ function AutoRotatingModel({ onLoad }) {
       <ModelLighting />
       <OrbitControls
         ref={orbitControlsRef}
-        enableZoom={true}
-        enablePan={true}
-        enableRotate={true}
+        autoRotate
+        autoRotateSpeed={2}
+        enableZoom={false}
+        enablePan={false}
+        enableRotate
+        keyEvents={false}
         target={[0, 0, 0]}
+        minDistance={3.5}
+        maxDistance={22}
         minPolarAngle={Math.PI / 4}
         maxPolarAngle={Math.PI - Math.PI / 4}
       />
@@ -103,21 +104,15 @@ function ModelLighting() {
   );
 }
 
-// Unified BrandCard component
-function BrandCard({ brand, onClick }) {
+function BrandCard({ name, count }) {
   const navigate = useNavigate();
-  
+
   const handleClick = useCallback(() => {
-    navigate('/cars', { 
-      state: { 
-        selectedBrand: brand.name,
-        autoFilter: true 
-      }
+    navigate({
+      pathname: "/cars",
+      search: `?brand=${encodeURIComponent(name)}`,
     });
-    if (onClick) {
-      onClick();
-    }
-  }, [brand.name, navigate, onClick]);
+  }, [name, navigate]);
 
   return (
     <div 
@@ -125,23 +120,14 @@ function BrandCard({ brand, onClick }) {
       className="group relative overflow-hidden rounded-xl bg-zinc-800/50 hover:bg-zinc-800 transition-all duration-300 cursor-pointer"
     >
       <div className="p-8">
-        <h3 className="text-2xl font-bold mb-2 text-white">{brand.name}</h3>
-        <p className="text-zinc-400">{brand.desc}</p>
+        <h3 className="text-2xl font-bold mb-2 text-white">{name}</h3>
+        <p className="text-zinc-400">{count === 1 ? "1 model" : `${count} models`}</p>
         <div className="mt-4 opacity-0 group-hover:opacity-100 transition-opacity">
           <span className="text-orange-600 flex items-center gap-2">
             View Models <ArrowRight className="w-4 h-4" />
           </span>
         </div>
       </div>
-      {brand.image && (
-        <div className="absolute bottom-0 right-0 w-32 h-32 opacity-10 group-hover:opacity-20 transition-opacity">
-          <img
-            src={brand.image}
-            alt={brand.name}
-            className="w-full h-full object-contain"
-          />
-        </div>
-      )}
     </div>
   );
 }
@@ -183,6 +169,7 @@ function FeatureLabel({ children, className = "", icon: Icon, delay = 0 }) {
   return (
     <div 
       ref={labelRef}
+      data-feature-label
       className={`
         flex items-center gap-3 
         transform transition-all duration-700 
@@ -204,19 +191,16 @@ function VideoSection({ title = "Experience Indian Engineering" }) {
   const videoRef = useRef(null);
 
   useEffect(() => {
-    if (videoRef.current) {
-      videoRef.current.play().catch(() => {
-        setIsPlaying(false);
-        setIsMuted(true);
-      });
-    }
-
+    const video = videoRef.current;
+    if (!video) return;
+    video.play().then(() => {
+      setIsPlaying(true);
+    }).catch(() => {
+      setIsPlaying(false);
+      setIsMuted(true);
+    });
     return () => {
-      if (videoRef.current) {
-        videoRef.current.pause();
-        videoRef.current.src = "";
-        videoRef.current.load();
-      }
+      video.pause();
     };
   }, []);
 
@@ -239,7 +223,7 @@ function VideoSection({ title = "Experience Indian Engineering" }) {
   }, [isMuted]);
 
   return (
-    <section className="relative w-full h-screen bg-black">
+    <section data-section="video" className="relative w-full h-screen bg-black">
       <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/60 z-10" />
       
       <video
@@ -254,7 +238,7 @@ function VideoSection({ title = "Experience Indian Engineering" }) {
         <source src={`${import.meta.env.BASE_URL}video/car.mp4`} type="video/mp4" />
       </video>
 
-      <div className="absolute inset-0 z-20 flex flex-col items-center justify-center">
+      <div className="absolute inset-0 z-20 flex flex-col items-center justify-center pointer-events-none">
         <div className="text-center mb-12 px-4">
           <h2 className="text-5xl font-bold mb-4 text-white">{title}</h2>
           <p className="text-xl text-zinc-200 max-w-2xl mx-auto">
@@ -267,7 +251,7 @@ function VideoSection({ title = "Experience Indian Engineering" }) {
         <button
           onClick={togglePlay}
           className="bg-orange-600/80 hover:bg-orange-600 text-white p-4 rounded-full transition-all duration-300 backdrop-blur-sm"
-          aria-label={isPlaying ? 'Pause video' : 'Play video'}
+          aria-label={isPlaying ? "Pause video" : "Play video"}
         >
           {isPlaying ? <Pause className="w-6 h-6" /> : <Play className="w-6 h-6" />}
         </button>
@@ -275,7 +259,7 @@ function VideoSection({ title = "Experience Indian Engineering" }) {
         <button
           onClick={toggleMute}
           className="bg-orange-600/80 hover:bg-orange-600 text-white p-4 rounded-full transition-all duration-300 backdrop-blur-sm"
-          aria-label={isMuted ? 'Unmute video' : 'Mute video'}
+          aria-label={isMuted ? "Unmute video" : "Mute video"}
         >
           {isMuted ? <VolumeX className="w-6 h-6" /> : <Volume2 className="w-6 h-6" />}
         </button>
@@ -284,86 +268,91 @@ function VideoSection({ title = "Experience Indian Engineering" }) {
   );
 }
 
+const inr = new Intl.NumberFormat("en-IN", {
+  style: "currency",
+  currency: "INR",
+  maximumFractionDigits: 0,
+});
+
 function HomePage() {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
   const [isModelVisible, setIsModelVisible] = useState(false);
+  const [catalogCars, setCatalogCars] = useState([]);
   const scrollRef = useRef(null);
-  const [activeSection, setActiveSection] = useState('hero');
+  const [activeSection, setActiveSection] = useState("hero");
 
-  const performanceStats = useMemo(() => [
-    { icon: Factory, stat: "7+ Brands", label: "Made in India" },
-    { icon: Globe, stat: "150+ Countries", label: "Global Exports" },
-    { icon: Users, stat: "5M+", label: "Indian Owners" },
-    { icon: Heart, stat: "92%", label: "Customer Satisfaction" },
-    { icon: Truck, stat: "2M+", label: "Annual Production" }
-  ], []);
+  useEffect(() => {
+    let cancelled = false;
+    fetch(`${import.meta.env.BASE_URL}data/cars.json`)
+      .then((response) => {
+        if (!response.ok) throw new Error("Failed to fetch car data");
+        return response.json();
+      })
+      .then((data) => {
+        if (!cancelled) setCatalogCars(Array.isArray(data) ? data : []);
+      })
+      .catch(() => {
+        if (!cancelled) setCatalogCars([]);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
-  const heritageStats = useMemo(() => [
-    { label: "Indian R&D Centers", value: "50+" },
-    { label: "Manufacturing Plants", value: "30+" },
-    { label: "Employment Generation", value: "1.5M+" },
-    { label: "Export Revenue", value: "$15B+" }
-  ], []);
+  const catalog = useMemo(() => {
+    const counts = new Map();
+    let lowest = Infinity;
+    let highest = -Infinity;
 
-  const technicalFeatures = useMemo(() => [
-    {
-      icon: Shield,
-      title: "Indian Innovation",
-      description: "Advanced technology developed by Indian engineers, perfectly suited for diverse road conditions."
-    },
-    {
-      icon: Settings,
-      title: "Made for India",
-      description: "Vehicles designed specifically for Indian conditions with enhanced features and durability."
-    },
-    {
-      icon: Wrench,
-      title: "Global Standards",
-      description: "Meeting international quality benchmarks while maintaining cost-effectiveness."
+    for (const car of catalogCars) {
+      if (!car?.brand) continue;
+      counts.set(car.brand, (counts.get(car.brand) || 0) + 1);
+      if (Number.isFinite(car.price)) {
+        lowest = Math.min(lowest, car.price);
+        highest = Math.max(highest, car.price);
+      }
     }
-  ], []);
 
-  const featuredBrands = useMemo(() => [
-    { 
-      name: "Tata Motors", 
-      desc: "Leading the EV revolution",
-      specialties: ["Electric Vehicles", "Premium SUVs", "Commercial Vehicles"]
-    },
-    { 
-      name: "Mahindra & Mahindra", 
-      desc: "Adventure-ready SUVs",
-      specialties: ["Rugged SUVs", "Electric Vehicles", "Farm Equipment"]
-    },
-    { 
-      name: "Maruti Suzuki", 
-      desc: "People's choice",
-      specialties: ["Compact Cars", "Family Vehicles", "SUVs"]
-    },
-    { 
-      name: "Hyundai India", 
-      desc: "Robust utility vehicles",
-      specialties: ["Commercial Vehicles", "Off-road Vehicles", "Defense Vehicles"]
-    }
-  ], []);
+    const brands = [...counts.entries()]
+      .map(([name, count]) => ({ name, count }))
+      .sort((a, b) => b.count - a.count || a.name.localeCompare(b.name));
+
+    const priced = Number.isFinite(lowest) && Number.isFinite(highest);
+
+    return {
+      stats: [
+        { value: String(catalogCars.length), label: "Models" },
+        { value: String(counts.size), label: "Brands" },
+        { value: priced ? inr.format(lowest) : "—", label: "Starts at" },
+        { value: priced ? inr.format(highest) : "—", label: "Up to" },
+      ],
+      brands,
+    };
+  }, [catalogCars]);
 
   const indianInnovations = useMemo(() => [
     {
       title: "Electric Mobility",
       icon: Zap,
-      description: "Leading the charge in affordable electric vehicles"
+      description: "Battery EVs from brands in this catalog are on sale now."
     },
     {
       title: "Connected Cars",
       icon: Globe,
-      description: "Advanced IoT integration for smart mobility"
+      description: "Phone connectivity, navigation, and over-the-air style features are now common."
     },
     {
       title: "Sustainable Manufacturing",
       icon: Factory,
-      description: "Green production practices and recycling initiatives"
+      description: "Makers are publishing efficiency and cleaner-production steps alongside the cars."
     }
   ], []);
+
+  const handleModelReady = useCallback(() => {
+    setIsLoading(false);
+    setIsModelVisible(true);
+  }, []);
 
   const observeSection = useCallback((entries) => {
     entries.forEach((entry) => {
@@ -378,7 +367,7 @@ function HomePage() {
       threshold: 0.3
     });
 
-    document.querySelectorAll('[data-section]').forEach((section) => {
+    document.querySelectorAll("[data-section]").forEach((section) => {
       observer.observe(section);
     });
 
@@ -403,7 +392,7 @@ function HomePage() {
   return (
     <div className="bg-black text-white">
       <section data-section="hero" className="min-h-screen relative pt-16">
-        <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black z-10"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black z-10 pointer-events-none"></div>
         
         <div className="relative z-20">
           <div className="p-8">
@@ -421,15 +410,13 @@ function HomePage() {
           </div>
 
           <div className="relative max-w-6xl mx-auto">
-            <div className="h-[80vh]">
-              <Canvas {...canvasProps}>
+            <div className="relative h-[80vh]">
+              <Canvas
+                {...canvasProps}
+                style={{ position: "relative", width: "100%", height: "100%", display: "block", touchAction: "pan-y" }}
+              >
                 <Suspense fallback={<LoadingFallback />}>
-                  <AutoRotatingModel 
-                    onLoad={() => {
-                      setIsLoading(false);
-                      setIsModelVisible(true);
-                    }} 
-                  />
+                  <AutoRotatingModel onLoad={handleModelReady} />
                   <Preload all />
                 </Suspense>
               </Canvas>
@@ -473,11 +460,12 @@ function HomePage() {
                   </FeatureLabel>
                 </div>
               )}
+
             </div>
 
             <div className="flex flex-col items-center gap-8 w-full py-8">
               <button
-                onClick={() => navigate('/cars')}
+                onClick={() => navigate("/cars")}
                 className="group bg-orange-700 hover:bg-orange-600 text-white px-12 py-4 text-lg font-medium rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg flex items-center gap-2"
                 disabled={isLoading}
               >
@@ -487,7 +475,7 @@ function HomePage() {
               <button
                 onClick={() => {
                   if (scrollRef.current) {
-                    scrollRef.current.scrollIntoView({ behavior: 'smooth' });
+                    scrollRef.current.scrollIntoView({ behavior: "smooth" });
                   }
                 }}
                 className="text-white animate-bounce"
@@ -500,49 +488,52 @@ function HomePage() {
         </div>
       </section>
 
-      <section 
+      <section
         ref={scrollRef}
-        data-section="brands"
-        className="py-24 bg-gradient-to-b from-zinc-900 to-black"
+        data-section="catalog"
+        className="py-24 bg-[#1A1B25]"
       >
+        {catalogCars.length > 0 && (
         <div className="max-w-6xl mx-auto px-8">
-          <h2 className="text-5xl font-bold mb-16 text-center">Proud Indian Brands</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {featuredBrands.map((brand) => (
-              <BrandCard 
-                key={brand.name}
-                brand={brand}
-               
-              />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section 
-        data-section="stats"
-        className="py-32 bg-black"
-      >
-        <div className="max-w-6xl mx-auto px-8">
-          <h2 className="text-5xl font-bold mb-16 text-center">Indian Automotive Power</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-12">
-            {performanceStats.map(({ icon: Icon, stat, label }) => (
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-12">
+            {catalog.stats.map(({ value, label }) => (
               <div key={label} className="text-center transform hover:scale-105 transition-transform duration-300">
-                <div className="relative">
-                  <div className="absolute inset-0 bg-orange-600/20 blur-xl rounded-full"></div>
-                  <Icon className="w-16 h-16 mx-auto mb-4 text-orange-600 relative" />
-                </div>
-                <h3 className="text-3xl font-bold mb-2">{stat}</h3>
+                <div className="w-12 h-0.5 bg-orange-600 mx-auto mb-6"></div>
+                <h3 className="text-3xl font-bold mb-2">{value}</h3>
                 <p className="text-zinc-400 text-lg">{label}</p>
               </div>
             ))}
           </div>
+          <p className="text-center text-zinc-400 mt-12">
+            Prices are ex-showroom starting prices from the manufacturers.
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-16">
+            {catalog.brands.map((brand) => (
+              <BrandCard
+                key={brand.name}
+                name={brand.name}
+                count={brand.count}
+              />
+            ))}
+          </div>
+
+          <div className="flex justify-center mt-12">
+            <button
+              onClick={() => navigate("/cars")}
+              className="group bg-orange-600 text-white px-12 py-4 text-lg font-medium rounded-full hover:bg-orange-700 transition-all duration-300 transform hover:scale-105 flex items-center gap-2"
+            >
+              View all cars
+              <ArrowRight className="group-hover:translate-x-1 transition-transform" />
+            </button>
+          </div>
         </div>
+        )}
       </section>
 
-      <VideoSection title="The Spirit of Indian Engineering"  />
+      <VideoSection title="The Spirit of Indian Engineering" />
 
-      <section 
+      <section
         data-section="innovation"
         className="py-32 bg-zinc-900"
       >
@@ -551,7 +542,7 @@ function HomePage() {
             <div>
               <h2 className="text-4xl font-bold mb-8">Indian Innovation Hub</h2>
               <p className="text-zinc-400 text-lg leading-relaxed mb-8">
-                India's automotive sector is at the forefront of global innovation, combining cutting-edge technology with sustainable practices. Our manufacturers are leading the way in electric mobility, connected vehicles, and smart manufacturing.
+                Indian manufacturers now sell electric, connected, and more efficient models in the same showrooms as petrol cars. IndiWheels lists current models with ex-showroom starting prices taken from each manufacturer's India site.
               </p>
               <div className="grid grid-cols-1 gap-8">
                 {indianInnovations.map(({ title, icon: Icon, description }) => (
@@ -570,7 +561,7 @@ function HomePage() {
             <div className="relative h-96 overflow-hidden rounded-lg">
               <div className="absolute inset-0 bg-gradient-to-r from-orange-600/20 to-black/20"></div>
               <img
-                src={`${import.meta.env.BASE_URL}/img/hyundai-motor-group.jpg`}
+                src={`${import.meta.env.BASE_URL}img/hyundai-motor-group.jpg`}
                 alt="Indian Automotive Innovation"
                 className="w-full h-full object-cover"
                 loading="lazy"
@@ -580,37 +571,9 @@ function HomePage() {
         </div>
       </section>
 
-      <section 
-        data-section="cta"
-        className="py-32 bg-gradient-to-b from-black to-zinc-900 relative overflow-hidden"
-      >
-        <div className="absolute inset-0 bg-orange-600/5"></div>
-        <div className="max-w-6xl mx-auto px-8 relative z-10">
-          <div className="text-center">
-            <h2 className="text-6xl font-bold mb-8">Experience Indian Engineering</h2>
-            <p className="text-xl text-zinc-400 mb-12 max-w-2xl mx-auto">
-              Discover the perfect blend of innovation, performance, and value in India's finest automobiles.
-            </p>
-            <div className="flex flex-wrap justify-center gap-6">
-              <button 
-                onClick={() => navigate('/cars')}
-                className="group bg-orange-600 text-white px-12 py-4 text-lg font-medium rounded-full hover:bg-orange-700 transition-all duration-300 transform hover:scale-105 flex items-center gap-2"
-              >
-                View All Cars
-                <ArrowRight className="group-hover:translate-x-1 transition-transform" />
-              </button>
-              <button className="group border border-orange-600 text-white px-12 py-4 text-lg font-medium rounded-full hover:bg-orange-600/10 transition-all duration-300 flex items-center gap-2">
-                Compare Models
-                <ArrowRight className="opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
-
       <div className="fixed bottom-8 right-8 z-50">
         <button 
-          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           className="bg-orange-600/80 hover:bg-orange-600 text-white p-4 rounded-full transition-all duration-300 backdrop-blur-sm"
         >
           <ChevronDown className="w-6 h-6 transform rotate-180" />

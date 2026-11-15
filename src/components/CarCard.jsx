@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Car, Fuel, Settings, Users, GaugeCircle, Calendar } from 'lucide-react';
+import { Car, Fuel, Settings, Users, GaugeCircle, Calendar, ExternalLink } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const CarCard = ({ car }) => {
@@ -12,16 +12,20 @@ const CarCard = ({ car }) => {
   }).format(car.price);
 
   return (
-    <Link
-      to={`/cardetail/${car.id}`}
+    <div
       className="block relative rounded-3xl overflow-hidden transition-all duration-500 hover:-translate-y-2 group"
     >
+      <Link
+        to={`/cardetail/${car.id}`}
+        className="absolute inset-0 z-10 rounded-3xl"
+        aria-label={`${car.brand} ${car.model}`}
+      />
       {/* Darker Background with Enhanced Hover Effect */}
-      <div className="absolute inset-0 bg-gradient-to-br from-gray-950/98 to-black/98 backdrop-blur-xl border border-gray-800/30 rounded-3xl transform transition-all duration-500 
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-gray-950/98 to-black/98 backdrop-blur-xl border border-gray-800/30 rounded-3xl transform transition-all duration-500 
         group-hover:scale-[1.02] group-hover:shadow-2xl group-hover:border-blue-900/50" />
 
-      {/* Content Container */}
-      <div className="relative">
+      {/* Content sits above the card link. Clicks pass through except on the price. */}
+      <div className="relative z-20 pointer-events-none">
         {/* Image Section with Smooth Zoom */}
         <div className="relative h-64 overflow-hidden rounded-t-3xl">
           {car.imageUrl ? (
@@ -54,7 +58,7 @@ const CarCard = ({ car }) => {
           {/* Badge */}
           <div className="absolute top-4 right-4">
             <span className="bg-black/80 backdrop-blur-sm text-white px-3 py-1 rounded-full text-sm font-medium border border-gray-800/30">
-              {car.bodyType}
+              {car.bodyType || 'N/A'}
             </span>
           </div>
         </div>
@@ -67,14 +71,27 @@ const CarCard = ({ car }) => {
             <h3 className="text-2xl font-bold text-white transition-colors duration-300 group-hover:text-blue-400">
               {car.model}
             </h3>
-            <div className="text-red-500 font-bold text-xl">{formattedPrice}</div>
+            {car.priceSource ? (
+              <a
+                href={car.priceSource}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`${formattedPrice}, manufacturer price page`}
+                className="pointer-events-auto relative z-20 inline-flex items-center gap-1.5 text-red-500 font-bold text-xl"
+              >
+                {formattedPrice}
+                <ExternalLink className="w-4 h-4" aria-hidden="true" />
+              </a>
+            ) : (
+              <div className="text-red-500 font-bold text-xl">{formattedPrice}</div>
+            )}
           </div>
 
           {/* Features Grid */}
           <div className="grid grid-cols-2 gap-4">
-            <FeatureItem icon={<Fuel className="w-5 h-5" />} label={car.fuelType} />
-            <FeatureItem icon={<Settings className="w-5 h-5" />} label={car.transmission} />
-            <FeatureItem icon={<Users className="w-5 h-5" />} label={`${car.seatingCapacity} Seats`} />
+            <FeatureItem icon={<Fuel className="w-5 h-5" />} label={car.fuelType || 'N/A'} />
+            <FeatureItem icon={<Settings className="w-5 h-5" />} label={car.transmission || 'N/A'} />
+            <FeatureItem icon={<Users className="w-5 h-5" />} label={car.seatingCapacity != null ? `${car.seatingCapacity} Seats` : 'N/A'} />
             <FeatureItem 
               icon={<GaugeCircle className="w-5 h-5" />} 
               label={car.mileage ? `${car.mileage} km/l` : 'N/A'} 
@@ -85,7 +102,7 @@ const CarCard = ({ car }) => {
           <div className="pt-4 border-t border-gray-800/30 flex justify-between items-center">
             <div className="flex items-center gap-2 text-gray-400">
               <Calendar className="w-4 h-4" />
-              <span className="text-sm">{car.manufactureYear}</span>
+              <span className="text-sm">{car.manufactureYear || 'N/A'}</span>
             </div>
             <div className="flex items-center gap-2 text-blue-400 font-medium group-hover:text-blue-300 transition-colors">
               <span>View Details</span>
@@ -94,7 +111,7 @@ const CarCard = ({ car }) => {
           </div>
         </div>
       </div>
-    </Link>
+    </div>
   );
 };
 

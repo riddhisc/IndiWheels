@@ -11,9 +11,8 @@ import {
   CreditCard, 
   Calendar, 
   ArrowLeft, 
-  ArrowRight,
-  Download,
   Settings,
+  ExternalLink,
  // Home
 } from 'lucide-react';
 
@@ -128,13 +127,13 @@ const CarDetailsPage = () => {
     const fetchCarDetails = async () => {
       try {
         setLoading(true);
-        const response = await fetch("https://api.jsonbin.io/v3/b/67aa4297acd3cb34a8dce65f", {
-          headers: {
-            "X-Master-Key": "$2a$10$m.41BaxaqeIliqWf2bCrp.pqQse.5gbVIjW44xtPwPXvP2oQvk40C"
-          }
-        });
+        const response = await fetch(`${import.meta.env.BASE_URL}data/cars.json`);
+        if (!response.ok) {
+          throw new Error('Failed to fetch car details');
+        }
         const data = await response.json();
-        const selectedCar = data.record.find(car => car.id === id);
+        const carsArray = Array.isArray(data) ? data : [];
+        const selectedCar = carsArray.find(car => String(car.id) === String(id));
         
         if (selectedCar) {
           setCar(selectedCar);
@@ -188,11 +187,13 @@ const CarDetailsPage = () => {
     );
   }
 
+  const withUnit = (value, unit) => (value === null || value === undefined || value === '' ? 'N/A' : `${value} ${unit}`);
+
   const features = [
-    { icon: Settings, label: 'Engine', value: `${car.engineCC} CC` },
-    { icon: Users, label: 'Capacity', value: `${car.seatingCapacity} Seater` },
-    { icon: Fuel, label: 'Fuel Type', value: car.fuelType },
-    { icon: Gauge, label: 'Mileage', value: `${car.mileage} kmpl` }
+    { icon: Settings, label: 'Engine', value: withUnit(car.engineCC, 'CC') },
+    { icon: Users, label: 'Capacity', value: car.seatingCapacity != null ? `${car.seatingCapacity} Seater` : 'N/A' },
+    { icon: Fuel, label: 'Fuel Type', value: car.fuelType || 'N/A' },
+    { icon: Gauge, label: 'Mileage', value: car.mileage ? `${car.mileage} kmpl` : 'N/A' }
   ];
 
   return (
@@ -200,20 +201,25 @@ const CarDetailsPage = () => {
      
       
       <div className="relative h-[80vh] w-full mb-8 pt-16">
-        <div 
-          className="absolute inset-0 bg-cover bg-center blur-2xl opacity-30 scale-110"
-          style={{ backgroundImage: `url(${car.imageUrl})` }}
-        />
+        {car.imageUrl ? (
+          <div 
+            className="absolute inset-0 bg-cover bg-center blur-2xl opacity-30 scale-110"
+            style={{ backgroundImage: `url(${car.imageUrl})` }}
+          />
+        ) : null}
         
         <div className="relative h-full flex items-center justify-center">
-          <img
-            src={car.imageUrl}
-            alt={`${car.brand} ${car.model}`}
-            className={`max-h-full w-auto object-contain transition-all duration-700 ${
-              imageLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
-            }`}
-            onLoad={() => setImageLoaded(true)}
-          />
+          {car.imageUrl ? (
+            <img
+              src={car.imageUrl}
+              alt={`${car.brand} ${car.model}`}
+              className={`max-h-full w-auto object-contain transition-all duration-700 ${
+                imageLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
+              }`}
+              onLoad={() => setImageLoaded(true)}
+              onError={() => setImageLoaded(false)}
+            />
+          ) : null}
           
           {!imageLoaded && (
             <div className="absolute inset-0 flex items-center justify-center">
@@ -242,13 +248,18 @@ const CarDetailsPage = () => {
                 <div className="flex items-center gap-6 text-gray-400">
                   <span className="flex items-center gap-2">
                     <Calendar className="w-5 h-5" />
-                    {car.manufactureYear}
+                    {car.manufactureYear || 'N/A'}
                   </span>
                   <span className="flex items-center gap-2">
                     <CarFront className="w-5 h-5" />
-                    {car.bodyType}
+                    {car.bodyType || 'N/A'}
                   </span>
                 </div>
+                {car.imageLicense ? (
+                  <p className="text-gray-400 text-sm mt-3">
+                    Photo: {car.imageAuthor || 'Wikimedia Commons'} ({car.imageLicense})
+                  </p>
+                ) : null}
               </div>
 
               <p className="text-gray-400 leading-relaxed text-lg">
@@ -274,7 +285,7 @@ const CarDetailsPage = () => {
             <div className="bg-black/50 backdrop-blur-sm p-8 rounded-xl border border-gray-800/50">
               <h3 className="text-xl font-semibold mb-6">Available Colors</h3>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                {car.colorOptions.map((color) => (
+                {(car.colorOptions || []).map((color) => (
                   <ColorSwatch key={color} colorName={color} />
                 ))}
               </div>
@@ -286,41 +297,41 @@ const CarDetailsPage = () => {
                 <div className="space-y-4">
                   <div className="flex justify-between items-center p-3 bg-black/30 rounded-lg">
                     <span className="text-gray-400">Body Type</span>
-                    <span className="font-medium">{car.bodyType}</span>
+                    <span className="font-medium">{car.bodyType || 'N/A'}</span>
                   </div>
                   <div className="flex justify-between items-center p-3 bg-black/30 rounded-lg">
                     <span className="text-gray-400">Engine</span>
-                    <span className="font-medium">{car.engineCC} CC</span>
+                    <span className="font-medium">{withUnit(car.engineCC, 'CC')}</span>
                   </div>
                   <div className="flex justify-between items-center p-3 bg-black/30 rounded-lg">
                     <span className="text-gray-400">Transmission</span>
-                    <span className="font-medium">{car.transmission}</span>
+                    <span className="font-medium">{car.transmission || 'N/A'}</span>
                   </div>
                   <div className="flex justify-between items-center p-3 bg-black/30 rounded-lg">
                     <span className="text-gray-400">Power</span>
-                    <span className="font-medium">{car.power} bhp</span>
+                    <span className="font-medium">{withUnit(car.power, car.powerUnit || 'bhp')}</span>
                   </div>
                   <div className="flex justify-between items-center p-3 bg-black/30 rounded-lg">
                     <span className="text-gray-400">Torque</span>
-                    <span className="font-medium">{car.torqueNm} Nm</span>
+                    <span className="font-medium">{withUnit(car.torqueNm, car.torqueUnit || 'Nm')}</span>
                   </div>
                 </div>
                 <div className="space-y-4">
                   <div className="flex justify-between items-center p-3 bg-black/30 rounded-lg">
                     <span className="text-gray-400">Top Speed</span>
-                    <span className="font-medium">{car.topSpeedKmh} km/h</span>
+                    <span className="font-medium">{withUnit(car.topSpeedKmh, 'km/h')}</span>
                   </div>
                   <div className="flex justify-between items-center p-3 bg-black/30 rounded-lg">
                     <span className="text-gray-400">Acceleration (0-100)</span>
-                    <span className="font-medium">{car.acceleration0100Sec} sec</span>
+                    <span className="font-medium">{withUnit(car.acceleration0100Sec, 'sec')}</span>
                   </div>
                   <div className="flex justify-between items-center p-3 bg-black/30 rounded-lg">
                     <span className="text-gray-400">Fuel Tank</span>
-                    <span className="font-medium">{car.fuelTankCapacityL} L</span>
+                    <span className="font-medium">{withUnit(car.fuelTankCapacityL, 'L')}</span>
                   </div>
                   <div className="flex justify-between items-center p-3 bg-black/30 rounded-lg">
                     <span className="text-gray-400">Ground Clearance</span>
-                    <span className="font-medium">{car.groundClearanceMm} mm</span>
+                    <span className="font-medium">{withUnit(car.groundClearanceMm, 'mm')}</span>
                   </div>
                   <div className="flex justify-between items-center p-3 bg-black/30 rounded-lg">
                     <span className="text-gray-400">Fuel Type</span>
@@ -336,21 +347,30 @@ const CarDetailsPage = () => {
             <div className="bg-black/50 backdrop-blur-sm p-8 rounded-2xl border border-gray-800/50 sticky top-24">
               <div className="mb-8">
                 <p className="text-gray-400 mb-2">Starting from</p>
-                <p className="text-5xl font-bold text-orange-500">
-                  {formatPrice(car.price)}
-                </p>
+                {car.priceSource ? (
+                  <a
+                    href={car.priceSource}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-3 text-5xl font-bold text-orange-500"
+                  >
+                    {formatPrice(car.price)}
+                    <ExternalLink className="w-7 h-7" aria-hidden="true" />
+                  </a>
+                ) : (
+                  <p className="text-5xl font-bold text-orange-500">
+                    {formatPrice(car.price)}
+                  </p>
+                )}
               </div>
 
               <div className="space-y-4">
-                <button className="w-full px-6 py-4 bg-orange-600 text-white rounded-xl hover:bg-orange-700 transition-all duration-300 transform hover:scale-[1.02] flex items-center justify-center gap-2">
-                  Book Test Drive
-                  <ArrowRight className="w-5 h-5" />
-                </button>
-              
-                <button className="w-full bg-black/20 text-white rounded-xl py-4 border border-white/10 hover:bg-white/5 transition-colors flex items-center justify-center gap-2">
-                  <Download className="w-5 h-5" />
-                  Download Brochure
-                </button>
+                <Link
+                  to="/about"
+                  className="w-full px-6 py-4 bg-orange-600 text-white rounded-xl hover:bg-orange-700 transition-all duration-300 transform hover:scale-[1.02] flex items-center justify-center gap-2"
+                >
+                  About
+                </Link>
               </div>
             </div>
           </div>

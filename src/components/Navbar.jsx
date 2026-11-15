@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Home } from 'lucide-react';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
-  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -42,12 +41,12 @@ const Navbar = () => {
             >
               Cars
             </Link>
-            <button
-              onClick={() => navigate('/cars')}
+            <Link
+              to="/about"
               className="bg-orange-600 text-white px-4 py-2 rounded-full hover:bg-orange-700 transition-all duration-300 transform hover:scale-105"
             >
-              Book Test Drive
-            </button>
+              About
+            </Link>
           </div>
         </div>
       </div>

@@ -19,10 +19,14 @@ const CarListing = () => {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    // Check if we have a brand filter from navigation
+    const brandFromQuery = new URLSearchParams(location.search).get("brand");
+    if (brandFromQuery) {
+      setSelectedBrand(brandFromQuery);
+      return;
+    }
+
     if (location.state?.selectedBrand && location.state?.autoFilter) {
       setSelectedBrand(location.state.selectedBrand);
-      // Clear the navigation state to prevent persisting filter
       window.history.replaceState({}, document.title);
     }
   }, [location]);
@@ -76,11 +80,7 @@ const CarListing = () => {
 
   useEffect(() => {
     setLoading(true);
-    fetch("https://api.jsonbin.io/v3/b/67aa4297acd3cb34a8dce65f", {
-      headers: {
-        "X-Master-Key": "$2a$10$m.41BaxaqeIliqWf2bCrp.pqQse.5gbVIjW44xtPwPXvP2oQvk40C"
-      }
-    })
+    fetch(`${import.meta.env.BASE_URL}data/cars.json`)
     .then(response => {
       if (!response.ok) {
         throw new Error('Failed to fetch car data');
@@ -88,7 +88,7 @@ const CarListing = () => {
       return response.json();
     })
     .then(data => {
-      const carsArray = Array.isArray(data.record) ? data.record : data.record.carsData || [];
+      const carsArray = Array.isArray(data) ? data : [];
       setCars(carsArray);
       
       if (carsArray.length > 0) {
@@ -127,8 +127,8 @@ const CarListing = () => {
   }
 
   const brands = ['All', ...new Set(cars.map(car => car.brand))];
-  const fuelTypes = ['All', ...new Set(cars.map(car => car.fuelType))];
-  const bodyTypes = ['All', ...new Set(cars.map(car => car.bodyType))];
+  const fuelTypes = ['All', ...new Set(cars.map(car => car.fuelType).filter(Boolean))];
+  const bodyTypes = ['All', ...new Set(cars.map(car => car.bodyType).filter(Boolean))];
 
   const formatPrice = (price) => {
     return new Intl.NumberFormat('en-IN', {
